@@ -1,0 +1,21 @@
+version: '2.1'
+services:
+    # container data
+    container_volumes:
+        container_name: container_volumes
+        image: tianon/true
+        volumes:
+            - ./logs/library:/var/log/php
+            - ./:/var/www/library
+    
+    # php container
+    php:
+        container_name: php
+        build:
+            context: ./containers/php
+        volumes_from:
+            - container_volumes
+        depends_on:
+            container_volumes:
+                condition: service_started
+        restart: always

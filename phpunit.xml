@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Unit Tests">
+        <testsuite name="Yedpay Library Unit Tests">
             <directory suffix="Test.php">./Tests</directory>
         </testsuite>
     </testsuites>
