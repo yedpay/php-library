@@ -2,14 +2,18 @@
 
 namespace Yedpay;
 
+use Exception;
+
 class Library
 {
     protected $production = 'https://api.yedpay.com';
     protected $staging = 'https://api-staging.yedpay.com';
     protected $version = 'v1';
-    protected $environment = null;
+    protected $environment = 'staging';
     protected $accessToken = null;
-    protected $endpoint = null;
+
+    const PRODUCTION = 'production';
+    const STAGING = 'staging';
 
     /**
      * Get the value of production
@@ -72,26 +76,6 @@ class Library
     }
 
     /**
-     * Get the value of environment
-     */
-    public function getEnvironment()
-    {
-        return $this->environment;
-    }
-
-    /**
-     * Set the value of environment
-     *
-     * @return  self
-     */
-    public function setEnvironment($environment)
-    {
-        $this->environment = $environment;
-
-        return $this;
-    }
-
-    /**
      * Get the value of accessToken
      */
     public function getAccessToken()
@@ -112,22 +96,34 @@ class Library
     }
 
     /**
+     * Get the value of environment
+     */
+    public function getEnvironment()
+    {
+        return $this->environment;
+    }
+
+    /**
+     * Set the value of environment
+     *
+     * @return  self
+     */
+    public function setEnvironment($environment)
+    {
+        if ($environment != static::PRODUCTION && $environment != static::STAGING) {
+            throw new Exception('invalid Environment');
+        }
+        $this->environment = $environment;
+
+        return $this;
+    }
+
+    /**
      * Get the value of endpoint
      */
     public function getEndpoint()
     {
-        return $this->endpoint;
-    }
-
-    /**
-     * Set the value of endpoint
-     *
-     * @return  self
-     */
-    public function setEndpoint($endpoint)
-    {
-        $this->endpoint = $endpoint;
-
-        return $this;
+        $environment = $this->{'get' . $this->getEnvironment()}();
+        return implode('/', [$environment, $this->getVersion()]);
     }
 }
