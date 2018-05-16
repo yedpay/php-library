@@ -4,11 +4,11 @@ namespace Yedpay\Curl;
 
 interface HttpRequest
 {
-    public function setOption($name, $value);
+    public function setOptionArray($url, $method, $parameters, $token);
 
     public function execute();
 
-    public function getInfo($name);
+    public function error();
 
     public function close();
 }
