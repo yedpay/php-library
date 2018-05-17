@@ -81,7 +81,7 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
 
     public function test_set_environment_not_accept_different_of_staging_or_production()
     {
-        $this->expectException(\Exception::class);
+        $this->setExpectedException("\Exception");
         $this->class->setEnvironment('string');
     }
 
