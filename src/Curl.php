@@ -4,6 +4,9 @@ namespace Yedpay;
 
 use Yedpay\Curl\Request;
 use Exception;
+use Yedpay\Response\Error;
+use Yedpay\Response\Success;
+use Yedpay\Response\Response;
 
 class Curl
 {
@@ -21,6 +24,7 @@ class Curl
     /**
      * Set the value of library
      *
+     * @param Library $library
      * @return  self
      */
     public function setLibrary(Library $library)
@@ -41,6 +45,7 @@ class Curl
     /**
      * Set the value of request
      *
+     * @param Request $request
      * @return  self
      */
     public function setRequest(Request $request)
@@ -56,7 +61,7 @@ class Curl
      * @param mixed $path
      * @param mixed $method
      * @param mixed $parameters
-     * @return void
+     * @return Response
      */
     public function call($path, $method, $parameters)
     {
@@ -71,13 +76,32 @@ class Curl
             $err = $curl->error();
             $curl->close();
 
+            if ($result !== null) {
+                $result = json_decode($result);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    return new Error([
+                        'status' => 500,
+                        'message' => 'Error Parsing Response: ' . json_last_error_msg(),
+                    ]);
+                }
+
+                if ($result->success) {
+                    return new Success((array)$result);
+                }
+            }
+
+
             if ($err) {
                 throw new Exception('Error Processing Request: ' . $err);
             }
+
+            return new Error((array) $result);
         } catch (Exception $e) {
-            return $e->getMessage();
+            return new Error([
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ]);
         }
 
-        return $result;
     }
 }

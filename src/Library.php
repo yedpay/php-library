@@ -26,6 +26,7 @@ class Library
     /**
      * Set the value of production
      *
+     * @param $production
      * @return  self
      */
     public function setProduction($production)
@@ -46,6 +47,7 @@ class Library
     /**
      * Set the value of staging
      *
+     * @param $staging
      * @return  self
      */
     public function setStaging($staging)
@@ -66,6 +68,7 @@ class Library
     /**
      * Set the value of version
      *
+     * @param $version
      * @return  self
      */
     public function setVersion($version)
@@ -86,6 +89,7 @@ class Library
     /**
      * Set the value of accessToken
      *
+     * @param $accessToken
      * @return  self
      */
     public function setAccessToken($accessToken)
@@ -106,7 +110,9 @@ class Library
     /**
      * Set the value of environment
      *
+     * @param $environment
      * @return  self
+     * @throws Exception
      */
     public function setEnvironment($environment)
     {
