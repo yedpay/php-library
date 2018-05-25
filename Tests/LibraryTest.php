@@ -98,7 +98,6 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
 
     public function test_get_Endpoint()
     {
-        var_dump($this->class->getEndpoint());
         $this->assertTrue(!is_null($this->class->getEndpoint()));
     }
 }
