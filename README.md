@@ -1,31 +1,26 @@
 [![Build Status](https://travis-ci.org/yedpay/php-library.svg?branch=master)](https://travis-ci.org/yedpay/php-library)
 
 
-# Yedpay php-library
+# Yedpay precreate Library
 
 ## Description
 
-A PHP library for sending HTTP request to API
+A PHP library for Precreate Transactions Using the Yedpay API
 
 ## Prerequisites
 * [Composer](https://getcomposer.org/)
 * [Docker](https://www.docker.com/)
+* [Yedpay](https://www.yedpay.com/)
+
+In order to start using the API, you need to get Your Personal Access Token.
 
 ## Installation
-### Building Docker Machine
-    docker-compose up -d --build
-    
-### Installing Dependencies using Docker
-    docker exec -it php composer install
+
+### Installing Dependencies
+    composer install
         
 ### Running the test
-    docker exec -it php vendor/bin/phpunit
-
-### Starting Docker Machine
-    docker-machine start default 
-
-### Stoping Docker Machine
-    docker-machine stop default 
+    vendor/bin/phpunit
 
 ## Integration
 
@@ -57,6 +52,8 @@ A PHP library for sending HTTP request to API
 | message | string | Response message |
 | errorCode | int | HTTP standard response code |
 | error | string | Detail of the error |
+
+* Exampe Implementation
 
 Input parameters
     
@@ -123,6 +120,3 @@ Complete Code:
     } catch (Exception $e) {
         var_dump($e);
     }
-
-
-
