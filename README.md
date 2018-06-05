@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/yedpay/php-library.svg?branch=master)](https://travis-ci.org/yedpay/php-library)
+[![Coverage Status](https://coveralls.io/repos/github/yedpay/php-library/badge.svg?branch=master)](https://coveralls.io/github/yedpay/php-library?branch=master)
 
 
 # Yedpay precreate Library
