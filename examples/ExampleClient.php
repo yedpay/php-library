@@ -24,8 +24,8 @@ class TestClient
             //default Gateway: Alipay, HK wallet and HKD
             $client = new Client(static::STAGING, static::ACCESS_TOKEN);
             $client
-                //set currency to RMB
-                ->setCurrency(Client::INDEX_CURRENCY_RMB)
+                //set currency to HKD
+                ->setCurrency(Client::INDEX_CURRENCY_HKD)
                 //set China wallet
                 ->setWallet(Client::INDEX_WALLET_CN);
 
