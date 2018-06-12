@@ -11,27 +11,29 @@ use Yedpay\Curl\Request;
  */
 class Client
 {
+    private $gateway = 1;
     private $curl = null;
+    private $returnUrl = null;
+    private $notifyUrl = null;
     private $path;
     private $currency;
     private $wallet;
-    private $gateway;
 
     private $precreatePath = '/precreate/%s';
 
     const INDEX_GATEWAY_ALIPAY = 1;
-
+    const INDEX_GATEWAY_UNIONPAY = 2;
+    const INDEX_GATEWAY_ALIPAY_ONLINE = 4;
 
     const INDEX_WALLET_HK = 1;
     const INDEX_WALLET_CN = 2;
-    const HK_WALLET = "HK";
-    const CN_WALLET = "CN";
+    const HK_WALLET = 'HK';
+    const CN_WALLET = 'CN';
 
     const INDEX_CURRENCY_HKD = 1;
     const INDEX_CURRENCY_RMB = 2;
-    const CURRENCY_HKD = "HKD";
-    const CURRENCY_RMB = "RMB";
-
+    const CURRENCY_HKD = 'HKD';
+    const CURRENCY_RMB = 'RMB';
 
     /**
      * Client constructor.
@@ -87,15 +89,15 @@ class Client
         }
         $this->path = sprintf($this->precreatePath, $storeId);
         $parameter = [
-            'gateway_id' => $this->gateway,
-            'currency' => $this->currency,
-            'wallet' => $this->wallet,
+            'gateway_id' => (string) $this->getGateway(),
+            'currency' => $this->getCurrency(),
+            'wallet' => $this->getWallet(),
             'amount' => $amount,
         ];
-        if ($extraParam) {
-            $parameter = array_merge($parameter, ['extra_parameters' => $extraParam]);
-        }
-        return $this->curl->call($this->path, 'post', $parameter);
+        $parameter = $extraParam ? array_merge($parameter, ['extra_parameters' => $extraParam]) : $parameter;
+        $parameter = $this->getNotifyUrl() ? array_merge($parameter, ['notify_url' => $this->getNotifyUrl()]) : $parameter;
+        $parameter = $this->getReturnUrl() ? array_merge($parameter, ['return_url' => $this->getReturnUrl()]) : $parameter;
+        return $this->curl->call($this->path, 'POST', $parameter);
     }
 
     /**
@@ -179,4 +181,43 @@ class Client
         return $this->gateway;
     }
 
+    /**
+     * Get the value of returnUrl
+     */
+    public function getReturnUrl()
+    {
+        return $this->returnUrl;
+    }
+
+    /**
+     * Set the value of returnUrl
+     *
+     * @return  self
+     */
+    public function setReturnUrl($returnUrl)
+    {
+        $this->returnUrl = $returnUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of notifyUrl
+     */
+    public function getNotifyUrl()
+    {
+        return $this->notifyUrl;
+    }
+
+    /**
+     * Set the value of notifyUrl
+     *
+     * @return  self
+     */
+    public function setNotifyUrl($notifyUrl)
+    {
+        $this->notifyUrl = $notifyUrl;
+
+        return $this;
+    }
 }

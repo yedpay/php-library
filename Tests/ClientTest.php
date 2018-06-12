@@ -19,6 +19,8 @@ class ClientTest extends PHPUnit_Framework_TestCase
     private $class;
     private $mockCurl;
 
+    const TEST_URL = 'http:://test.com';
+
     public function setUp()
     {
         $this->class = new Client();
@@ -68,6 +70,40 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(method_exists(Client::class, 'getWallet'));
     }
 
+    public function test_method_set_return_url_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'setReturnUrl'));
+    }
+
+    public function test_method_get_return_url_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'getReturnUrl'));
+    }
+
+    public function test_method_set_notify_url_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'setNotifyUrl'));
+    }
+
+    public function test_method_get_notify_url_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'getNotifyUrl'));
+    }
+
+    public function test_set_notify_url()
+    {
+        $expected = static::TEST_URL;
+        $result = $this->class->setNotifyUrl(static::TEST_URL);
+        $this->assertEquals($expected, $result->getNotifyUrl());
+    }
+
+    public function test_set_return_url()
+    {
+        $expected = static::TEST_URL;
+        $result = $this->class->setReturnUrl(static::TEST_URL);
+        $this->assertEquals($expected, $result->getReturnUrl());
+    }
+
     public function test_client_constructor()
     {
         $client = new Client();
@@ -114,7 +150,6 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(Exception::class);
         $this->class->setWallet('Invalid wallet');
     }
-
 
     public function test_set_currency_hkd()
     {
@@ -195,5 +230,4 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $request = new Request();
         return $curl->setLibrary($library)->setRequest($request);
     }
-
 }
