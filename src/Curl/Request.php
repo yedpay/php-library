@@ -34,7 +34,7 @@ class Request implements HttpRequest
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30000,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_CUSTOMREQUEST => strtoupper($method),
             CURLOPT_POSTFIELDS => !empty($parameters) ? http_build_query($parameters) : null,
             CURLOPT_HTTPHEADER => [
                 'Authorization: Bearer ' . $token,

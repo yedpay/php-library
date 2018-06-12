@@ -25,6 +25,9 @@ In order to start using the API, you need to get Your Personal Access Token.
 
 ## Integration
 
+### if you dont use composer can autoload the library using 
+    require /path/of/library/autoload.php
+
 ### Request Method
 
 | Parameter | Type | Description |
@@ -95,7 +98,11 @@ Complete Code:
 
     <?php
     
-    require __DIR__ . '/../vendor/autoload.php';
+    //use this autoloader if not use composer
+    require __DIR__ . '/../autoload.php';
+
+    //use this autoloader if use composer
+    //require __DIR__ . '/../vendor/autoload.php';
     
     use Yedpay\Client;
     use Yedpay\Library;
