@@ -178,6 +178,20 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result->getGateway());
     }
 
+    public function test_set_gateway_unionpay()
+    {
+        $expected = Client::INDEX_GATEWAY_UNIONPAY;
+        $result = $this->class->setGateway(Client::INDEX_GATEWAY_UNIONPAY);
+        $this->assertEquals($expected, $result->getGateway());
+    }
+
+    public function test_set_gateway_alipay_online()
+    {
+        $expected = Client::INDEX_GATEWAY_ALIPAY_ONLINE;
+        $result = $this->class->setGateway(Client::INDEX_GATEWAY_ALIPAY_ONLINE);
+        $this->assertEquals($expected, $result->getGateway());
+    }
+
     public function test_set_unknown_gateway()
     {
         $this->setExpectedException(Exception::class);
