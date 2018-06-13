@@ -165,6 +165,8 @@ class Client
     {
         switch ($gateway) {
             case static::INDEX_GATEWAY_ALIPAY:
+            case static::INDEX_GATEWAY_UNIONPAY:
+            case static::INDEX_GATEWAY_ALIPAY_ONLINE:
                 $this->gateway = $gateway;
                 break;
             default:
