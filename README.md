@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/yedpay/php-library.svg?branch=master)](https://travis-ci.org/yedpay/php-library)
 [![Coverage Status](https://coveralls.io/repos/github/yedpay/php-library/badge.svg?branch=master)](https://coveralls.io/github/yedpay/php-library?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/yedpay/php-library/v/stable)](https://packagist.org/packages/yedpay/php-library)
+[![composer.lock](https://poser.pugx.org/yedpay/php-library/composerlock)](https://packagist.org/packages/yedpay/php-library)
 
 
 # Yedpay precreate Library
@@ -92,39 +94,6 @@ Sending Precreate Request
             $storeId, 
             $amount, 
             json_encode($extraParam)
-    );
+    )->getData();
     
-Complete Code: 
-
-    <?php
-    
-    //use this autoloader if not use composer
-    require __DIR__ . '/../autoload.php';
-
-    //use this autoloader if use composer
-    //require __DIR__ . '/../vendor/autoload.php';
-    
-    use Yedpay\Client;
-    use Yedpay\Library;
-    
-    $accessToken = 'eyJ0eXAiOi';
-    try {
-        //default Gateway: Alipay, HK wallet and HKD
-        $client = new Client(Library::STAGING, $accessToken);
-        $client->setCurrency(Client::INDEX_CURRENCY_RMB)//set currency to RMB
-        ->setWallet(Client::INDEX_WALLET_CN);//set China wallet
-    
-        //mandatory parameters
-        $storeId = '8X4LZW2XLG9V';
-        $amount = 1.0;
-        //optional parameter: extraParam (JSON)
-        $extraParam = json_encode([
-            'customer_name' => 'Yed Pay',
-            'phone' => '12345678',
-        ]);
-        $result = $client->precreate($storeId, $amount, $extraParam);
-
-        var_dump($result);
-    } catch (Exception $e) {
-        var_dump($e);
-    }
+for the complete Code check the examples folder: 
