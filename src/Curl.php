@@ -63,7 +63,7 @@ class Curl
      * @param mixed $parameters
      * @return Response
      */
-    public function call($path, $method, $parameters)
+    public function call($path, $method, $parameters = [])
     {
         $library = $this->getLibrary();
         $url = $library->getEndpoint() . $path;
@@ -89,7 +89,6 @@ class Curl
                     return new Success((array)$result);
                 }
             }
-
 
             if ($err) {
                 throw new Exception('Error Processing Request: ' . $err);

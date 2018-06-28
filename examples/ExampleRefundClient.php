@@ -10,38 +10,25 @@ use Yedpay\Client;
 use Yedpay\Response\Success;
 use Yedpay\Response\Error;
 
-class TestClient
+class TestRefundClient
 {
     const STAGING = 'staging';
     const PRODUCTION = 'production';
     const ACCESS_TOKEN = 'eyJ0eXAiOiJKV1QiLCJhbJSUzI1NiIsImp0aSI6IjY1NjhkOGM2MjZhNTYzMjFkNMndSH8rPBwIZn1OJK1pbi6QvQ3A4mbnNFNje9qNZJBpMFkEzEDvogSd0yvE2su_zcTfNAh8OjihNxh9vY--8EQKlqxxy_1Te1R0iahFNSOGRJYKq4vo6doDIWZoPjyT8dNKtZ7ypOpINwZ4e6Gkw4ExBTJjkrCGRvpw4s30JbgIqKrAfHUwD3O4eMLTlky1j4TQE2n0d_RGkSN1ZzZtyNYF6qI6StzUbyF_s';
 
     /**
-     * method precreate
+     * method refund
      *
      * @param $storeId
      * @param float $amount
      * @param array $extraParam
      * @return Exception|\Yedpay\Response\Response
      */
-    public function precreate($storeId, $amount = 0.1, array $extraParam = [])
+    public function refund($transactionId)
     {
         try {
-            //default Gateway: Alipay, HK wallet and HKD
             $client = new Client(static::STAGING, static::ACCESS_TOKEN);
-            $client
-                //set currency to HKD
-                ->setCurrency(Client::INDEX_CURRENCY_HKD)
-                //set China wallet
-                ->setWallet(Client::INDEX_WALLET_CN);
-
-            //request without extra parameters
-            if (empty($extraParam)) {
-                return $client->precreate($storeId, $amount);
-            }
-
-            //request with extra parameters
-            return $client->precreate($storeId, $amount, json_encode($extraParam));
+            return $client->refund($transactionId);
         } catch (Exception $e) {
             //handle the exception here
             return $e;
@@ -50,31 +37,25 @@ class TestClient
 }
 
 //mandatory parameters
-$storeId = 'X4LZKLG9';
-$amount = 0.1;
-//optional parameter: extraParam (JSON)
-$extraParam = [
-    'customer_name' => 'Yed Pay',
-    'phone' => '1234567890',
-];
+$transactionId = 'X4LZKLG9';
 
-$testClient = new TestClient();
-$precreate = $testClient->precreate($storeId, $amount, $extraParam);
+$testRefundClient = new TestRefundClient();
+$refund = $testRefundClient->refund($transactionId);
 // get the result
 switch (true) {
     // if result instance of success can show the result
-    case $precreate instanceof Success:
-        $result = $precreate->getData();
+    case $refund instanceof Success:
+        $result = $refund->getData();
         var_dump($result);
         break;
 
     // if result instance of error can show the error messages and error codes
     case $precreate instanceof Error:
-        var_dump($precreate->getErrors());
-        var_dump($precreate->getErrorCode());
+        var_dump($refund->getErrors());
+        var_dump($refund->getErrorCode());
         break;
 
     default:
-        var_dump($precreate);
+        var_dump($refund);
         break;
 }

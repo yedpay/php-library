@@ -20,6 +20,7 @@ class Client
     private $wallet;
 
     private $precreatePath = '/precreate/%s';
+    private $refundPath = 'transactions/%s/refund';
 
     const INDEX_GATEWAY_ALIPAY = 1;
     const INDEX_GATEWAY_UNIONPAY = 2;
@@ -98,6 +99,22 @@ class Client
         $parameter = $this->getNotifyUrl() ? array_merge($parameter, ['notify_url' => $this->getNotifyUrl()]) : $parameter;
         $parameter = $this->getReturnUrl() ? array_merge($parameter, ['return_url' => $this->getReturnUrl()]) : $parameter;
         return $this->curl->call($this->path, 'POST', $parameter);
+    }
+
+        /**
+     * @param $storeId
+     * @param $amount
+     * @param $extraParam
+     * @return Response\Response
+     * @throws Exception
+     */
+    public function refund($transactionId)
+    {
+        if (!$this->curl) {
+            throw new Exception('Please set curl with credentials first');
+        }
+        $this->path = sprintf($this->refundPath, $transactionId);
+        return $this->curl->call($this->path, 'POST');
     }
 
     /**
