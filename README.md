@@ -59,7 +59,7 @@ In order to start using the API, you need to get Your Personal Access Token.
 | errorCode | int | HTTP standard response code |
 | error | string | Detail of the error |
 
-* Exampe Implementation
+* Exampe Precreate Transaction Implementation
 
 Input parameters
     
@@ -95,5 +95,21 @@ Sending Precreate Request
             $amount, 
             json_encode($extraParam)
     )->getData();
+
+* Exampe Refund Transaction Implementation
+
+Input parameters
     
-for the complete Code check the examples folder: 
+    //mandatory parameters
+    $transactionId = 'J84OFPAN';
+    
+
+Create instance of Client
+
+    $client = new Client(Library::STAGING, $accessToken);
+    
+Sending Refund Request
+    
+    $client->refund($transactionId)->getData();
+
+For the complete Code Check the examples folder: 

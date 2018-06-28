@@ -40,6 +40,11 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(method_exists(Client::class, 'precreate'));
     }
 
+    public function test_method_refund_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'refund'));
+    }
+
     public function test_method_get_curl_exists()
     {
         $this->assertTrue(method_exists(Client::class, 'getCurl'));
@@ -213,6 +218,24 @@ class ClientTest extends PHPUnit_Framework_TestCase
             'status' => 401
         ]));
         $result = $this->class->setCurl($mockCurl)->precreate('1234', 1);
+        $this->assertTrue($result instanceof Error);
+    }
+
+    public function test_refund_null_curl()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->refund('1234', 1);
+    }
+
+    public function test_refund()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+        $result = $this->class->setCurl($mockCurl)->refund('1234567');
         $this->assertTrue($result instanceof Error);
     }
 
