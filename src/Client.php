@@ -20,7 +20,7 @@ class Client
     private $wallet;
 
     private $precreatePath = '/precreate/%s';
-    private $refundPath = 'transactions/%s/refund';
+    private $refundPath = '/transactions/%s/refund';
 
     const INDEX_GATEWAY_ALIPAY = 1;
     const INDEX_GATEWAY_UNIONPAY = 2;
