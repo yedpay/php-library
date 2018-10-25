@@ -240,43 +240,44 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     protected function getTestResult($type)
     {
         switch ($type) {
-            case static::SUCCESS : return json_encode([
-                'success' => true,
-                'data' => [
-                    'id' => '5YMRN2MM62GP',
-                    'user_id' => 'PK80L77DLGNW',
-                    'company_id' => 'D5JQLX2M694E',
-                    'store_id' => 'YVGREM1E650O',
-                    'gateway_id' => 1,
-                    'barcode_id' => '5Z4ROO28RJVY',
-                    'status' => 'pending',
-                    'amount' => '0.10',
-                    'currency' => 'HKD',
-                    'charge' => '0.00',
-                    'net' => '0.10',
-                    'forex' => 1,
-                    'paid_at' => '',
-                    'settled_at' => '',
-                    'transaction_id' => '152664013548796',
-                    'payer' => '',
-                    'extra_parameters' => '',
-                    'custom_id' => '',
-                    'refunded_at' => '',
-                    'created_at' => '2018-05-18 18 =>42 =>16',
-                    'updated_at' => '2018-05-18 18 =>42 =>16',
-                    'expired_at' => '2018-05-19 18 =>42 =>16',
-                    '_links' => [
-                        [
-                            'rel' => 'checkout',
-                            'href' => 'https =>//qr.alipay.com/bax00186h9gdkvlumpwo409f'
-                        ],
-                        [
-                            'rel' => 'qrcode',
-                            'href' => 'https =>//dev2.yedpay.com/q/alipay/aHR0cHM6Ly9xci5hbGlwYXkuY29tL2JheDAwMTg2aDlnZGt2bHVtcHdvNDA5Zg__'
+            case static::SUCCESS:
+                return json_encode([
+                    'success' => true,
+                    'data' => [
+                        'id' => '5YMRN2MM62GP',
+                        'user_id' => 'PK80L77DLGNW',
+                        'company_id' => 'D5JQLX2M694E',
+                        'store_id' => 'YVGREM1E650O',
+                        'gateway_id' => 1,
+                        'barcode_id' => '5Z4ROO28RJVY',
+                        'status' => 'pending',
+                        'amount' => '0.10',
+                        'currency' => 'HKD',
+                        'charge' => '0.00',
+                        'net' => '0.10',
+                        'forex' => 1,
+                        'paid_at' => '',
+                        'settled_at' => '',
+                        'transaction_id' => '152664013548796',
+                        'payer' => '',
+                        'extra_parameters' => '',
+                        'custom_id' => '',
+                        'refunded_at' => '',
+                        'created_at' => '2018-05-18 18 =>42 =>16',
+                        'updated_at' => '2018-05-18 18 =>42 =>16',
+                        'expired_at' => '2018-05-19 18 =>42 =>16',
+                        '_links' => [
+                            [
+                                'rel' => 'checkout',
+                                'href' => 'https =>//qr.alipay.com/bax00186h9gdkvlumpwo409f'
+                            ],
+                            [
+                                'rel' => 'qrcode',
+                                'href' => 'https =>//dev2.yedpay.com/q/alipay/aHR0cHM6Ly9xci5hbGlwYXkuY29tL2JheDAwMTg2aDlnZGt2bHVtcHdvNDA5Zg__'
+                            ]
                         ]
                     ]
-                ]
-            ]);
+                ]);
             case static::FAIL:
                 return json_encode([
                     'success' => false,
@@ -290,6 +291,5 @@ class CurlTest extends \PHPUnit_Framework_TestCase
             case static::CURLERROR:
                 return 'SSL certificate problem: unable to get local issuer certificate';
         }
-
     }
 }

@@ -50,7 +50,7 @@ switch (true) {
         break;
 
     // if result instance of error can show the error messages and error codes
-    case $precreate instanceof Error:
+    case $refund instanceof Error:
         var_dump($refund->getErrors());
         var_dump($refund->getErrorCode());
         break;

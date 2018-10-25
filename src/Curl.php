@@ -76,6 +76,13 @@ class Curl
             $err = $curl->error();
             $curl->close();
 
+            if ($err) {
+                return new Error([
+                    'status' => 400,
+                    'message' => 'Error Parsing Request: ' . $err,
+                ]);
+            }
+
             if ($result !== null) {
                 $result = json_decode($result);
                 if (json_last_error() !== JSON_ERROR_NONE) {
@@ -90,10 +97,6 @@ class Curl
                 }
             }
 
-            if ($err) {
-                throw new Exception('Error Processing Request: ' . $err);
-            }
-
             return new Error((array) $result);
         } catch (Exception $e) {
             return new Error([
@@ -101,6 +104,5 @@ class Curl
                 'message' => $e->getMessage(),
             ]);
         }
-
     }
 }
