@@ -23,9 +23,10 @@ class Request implements HttpRequest
      * @param mixed $method
      * @param mixed $parameters
      * @param mixed $token
+     * @param boolean $isAccessToken
      * @return void
      */
-    public function setOptionArray($url, $method, $parameters, $token)
+    public function setOptionArray($url, $method, $parameters, $token, $isAccessToken = true)
     {
         curl_setopt_array($this->handle, [
             CURLOPT_URL => $url,
@@ -36,8 +37,9 @@ class Request implements HttpRequest
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => strtoupper($method),
             CURLOPT_POSTFIELDS => !empty($parameters) ? http_build_query($parameters) : null,
+            CURLOPT_REFERER => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null,
             CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer ' . $token,
+                'Authorization: ' . ($isAccessToken ? 'Bearer ' : 'API-KEY ') . $token,
                 'Content-Type: application/x-www-form-urlencoded',
             ]
         ]);

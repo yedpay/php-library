@@ -67,11 +67,12 @@ class Curl
     {
         $library = $this->getLibrary();
         $url = $library->getEndpoint() . $path;
-        $token = $library->getAccessToken();
+        $token = $library->getApiKey() ? $library->getApiKey() : $library->getAccessToken();
+        $isAccessToken = empty($library->getApiKey());
 
         try {
             $curl = $this->getRequest();
-            $curl->setOptionArray($url, $method, $parameters, $token);
+            $curl->setOptionArray($url, $method, $parameters, $token, $isAccessToken);
             $result = $curl->execute();
             $err = $curl->error();
             $curl->close();

@@ -79,6 +79,24 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->class->getAccessToken() == $value);
     }
 
+    public function test_set_api_key_return_instance_of_library()
+    {
+        $result = $this->class->setApiKey('string');
+        $this->assertTrue($result instanceof Library);
+    }
+
+    public function test_get_api_key_return_null_if_not_setted()
+    {
+        $this->assertTrue(is_null($this->class->getApiKey()));
+    }
+
+    public function test_get_api_key_return_value_if_setted()
+    {
+        $value = 'string';
+        $result = $this->class->setApiKey($value);
+        $this->assertTrue($this->class->getApiKey() == $value);
+    }
+
     public function test_set_environment_not_accept_different_of_staging_or_production()
     {
         $this->setExpectedException("\Exception");

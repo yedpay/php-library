@@ -4,7 +4,7 @@ namespace Yedpay\Curl;
 
 interface HttpRequest
 {
-    public function setOptionArray($url, $method, $parameters, $token);
+    public function setOptionArray($url, $method, $parameters, $token, $isAccessToken);
 
     public function execute();
 
