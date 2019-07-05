@@ -109,6 +109,36 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result->getReturnUrl());
     }
 
+    public function test_method_set_subject_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'setSubject'));
+    }
+
+    public function test_method_get_subject_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'getSubject'));
+    }
+
+    public function test_method_set_expiry_time_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'setExpiryTime'));
+    }
+
+    public function test_method_get_expiry_time_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'getExpiryTime'));
+    }
+
+    public function test_method_set_gateway_code_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'setGatewayCode'));
+    }
+
+    public function test_method_get_gateway_code_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'getGatewayCode'));
+    }
+
     public function test_client_constructor()
     {
         $client = new Client();
@@ -209,6 +239,39 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->class->precreate('1234', 1);
     }
 
+    public function test_set_gateway_code_alipay_online()
+    {
+        $expected = Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE;
+        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE);
+        $this->assertEquals($expected, $result->getGatewayCode());
+    }
+
+    public function test_set_gateway_code_unknown()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->setGatewayCode(9999);
+    }
+
+    public function test_set_subject()
+    {
+        $expected = 'Product Name';
+        $result = $this->class->setSubject('Product Name');
+        $this->assertEquals($expected, $result->getSubject());
+    }
+
+    public function test_set_expiry_time()
+    {
+        $expected = 900;
+        $result = $this->class->setExpiryTime(900);
+        $this->assertEquals($expected, $result->getExpiryTime());
+    }
+
+    public function test_set_expiry_time_out_of_range()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->setExpiryTime(1);
+    }
+
     public function test_precreate()
     {
         $mockCurl = $this->mockCurl;
@@ -266,5 +329,77 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $library->setAccessToken('1234');
         $request = new Request();
         return $curl->setLibrary($library)->setRequest($request);
+    }
+
+    public function test_method_online_payment_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'onlinePayment'));
+    }
+
+    public function test_online_payment_null_curl()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->onlinePayment('1234', 1);
+    }
+
+    public function test_online_payment()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+        $result = $this->class->setCurl($mockCurl)->onlinePayment('1234', 1);
+        $this->assertTrue($result instanceof Error);
+    }
+
+    public function test_precreate_with_gateway_code()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE)
+                    ->setCurl($mockCurl)
+                    ->onlinePayment('1234', 1);
+        $this->assertTrue($result instanceof Error);
+    }
+
+    public function test_method_verify_sign_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'verifySign'));
+    }
+
+    public function test_verify_sign_no_sign_type()
+    {
+        $result = $this->class->verifySign(['1234' => 1234], '12345678901234567890123456789012');
+        $this->assertFalse($result);
+    }
+
+    public function test_verify_sign_not_sha256()
+    {
+        $result = $this->class->verifySign(['sign' => '1234', 'sign_type' => 'RSA'], '12345678901234567890123456789012');
+        $this->assertFalse($result);
+    }
+
+    public function test_verify_sign_has_unset_field()
+    {
+        $result = $this->class->verifySign(['sign' => '1234', 'sign_type' => 'HMAC_SHA256', 'test' => '1'], '12345678901234567890123456789012', ['test']);
+        $this->assertFalse($result);
+    }
+
+    public function test_verify_sign_key_size()
+    {
+        $result = $this->class->verifySign(['sign' => '1234', 'sign_type' => 'HMAC_SHA256'], '1234567890');
+        $this->assertFalse($result);
+    }
+
+    public function test_verify_sign()
+    {
+        $result = $this->class->verifySign(['sign' => '1234', 'sign_type' => 'HMAC_SHA256'], '12345678901234567890123456789012');
+        $this->assertFalse($result);
     }
 }

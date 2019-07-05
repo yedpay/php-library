@@ -11,6 +11,7 @@ class Library
     protected $version = 'v1';
     protected $environment = 'staging';
     protected $accessToken = null;
+    protected $apiKey = null;
 
     const PRODUCTION = 'production';
     const STAGING = 'staging';
@@ -131,5 +132,25 @@ class Library
     {
         $environment = $this->{'get' . $this->getEnvironment()}();
         return implode('/', [$environment, $this->getVersion()]);
+    }
+
+    /**
+     * Get the value of apiKey
+     */ 
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * Set the value of apiKey
+     *
+     * @return  self
+     */ 
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
     }
 }
