@@ -31,6 +31,7 @@ class Client
     const INDEX_GATEWAY_ALIPAY_ONLINE = 4;
 
     const INDEX_GATEWAY_CODE_ALIPAY_ONLINE = '4_2';
+    const INDEX_GATEWAY_CODE_WECHATPAY_ONLINE = '8_2';
 
     const INDEX_WALLET_HK = 1;
     const INDEX_WALLET_CN = 2;
@@ -376,6 +377,7 @@ class Client
     {
         switch ($gatewayCode) {
             case static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE:
+            case static::INDEX_GATEWAY_CODE_WECHATPAY_ONLINE:
                 $this->gatewayCode = $gatewayCode;
                 break;
             default:

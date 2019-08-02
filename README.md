@@ -58,7 +58,7 @@ In order to start using the API, you need to get Your Personal Access Token or A
 | currency  | Integer | transaction currency (1: HKD)|
 | notify_url | Url | Notify Url of the transaction |
 | return_url | Url | Return Url of the transaction |
-| gatewayCode  | String | (Optional) transaction gateway code (4_2: Alipay Online PC2Mobile) |
+| gatewayCode  | String | (Optional) transaction gateway code (4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online) |
 | wallet  | Integer | (Optional) Alipay wallet type (1: HK, 2: CN) |
 | subject | String | (Optional) Product Name of the transaction |
 | expiryTime | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800) |
