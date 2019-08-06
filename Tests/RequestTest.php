@@ -46,7 +46,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     public function test_execute()
     {
-        $this->request->setOptionArray($this->path, $this->method, $this->parameters, $this->token);
+        $this->request->setOptionArray($this->path, $this->method, $this->parameters, $this->token, true);
         $actual = $this->request->execute();
         $this->assertEquals(null, $actual);
     }
