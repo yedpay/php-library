@@ -20,15 +20,12 @@ In order to start using the API, you need to get Your Personal Access Token or A
 ## Installation
 
 ### Installing Dependencies
-    composer install
+    composer require yedpay/php-library
         
 ### Running the test
     vendor/bin/phpunit
 
 ## Integration
-
-### if you dont use composer can autoload the library using 
-    require /path/of/library/autoload.php
 
 ### Request Method
 
