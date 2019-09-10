@@ -402,4 +402,27 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $result = $this->class->verifySign(['sign' => '1234', 'sign_type' => 'HMAC_SHA256'], '12345678901234567890123456789012');
         $this->assertFalse($result);
     }
+
+    public function test_method_refund_by_custom_id_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'refundByCustomId'));
+    }
+
+    public function test_refund_by_custom_id_null_curl()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->refundByCustomId('1234', 1);
+    }
+
+    public function test_refund_by_custom_id()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+        $result = $this->class->setCurl($mockCurl)->refundByCustomId('1234567');
+        $this->assertTrue($result instanceof Error);
+    }
 }

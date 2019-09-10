@@ -25,6 +25,7 @@ class Client
     private $precreatePath = '/precreate/%s';
     private $onlinePaymentPath = '/online-payment';
     private $refundPath = '/transactions/%s/refund';
+    private $refundCustomIdPath = '/online-payment/%s/refund';
 
     const INDEX_GATEWAY_ALIPAY = 1;
     const INDEX_GATEWAY_UNIONPAY = 2;
@@ -153,6 +154,25 @@ class Client
         }
         $this->path = sprintf($this->refundPath, $transactionId);
         return $this->curl->call($this->path, 'POST', !empty($reason) ? ['refund_reason' => $reason] : []);
+    }
+
+    /**
+     * @param $customId
+     * @param $reason
+     * @return Response\Response
+     * @throws Exception
+     */
+    public function refundByCustomId($customId, $reason = null)
+    {
+        if (!$this->curl) {
+            throw new Exception('Please set curl with credentials first');
+        }
+        $params['custom_id'] = $customId;
+        $this->path = sprintf($this->refundCustomIdPath, $customId);
+        if($reason != null){
+            $params['refund_reason'] = $reason;
+        }
+        return $this->curl->call($this->path, 'PUT', $params);
     }
 
     /**

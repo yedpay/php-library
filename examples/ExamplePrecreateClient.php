@@ -1,11 +1,5 @@
 <?php
 
-//use this autoloader if not use composer
-require __DIR__ . '/../autoload.php';
-
-//use this autoloader if use composer
-//require __DIR__ . '/../vendor/autoload.php';
-
 use Yedpay\Client;
 use Yedpay\Response\Success;
 use Yedpay\Response\Error;

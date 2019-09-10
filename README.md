@@ -31,61 +31,70 @@ In order to start using the API, you need to get Your Personal Access Token or A
 
 * Precreate
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| accessToken | String | AccessToken used to access API |
-| environment | String | Environment ( 'staging' or 'production' )|
-| storeId | String | Store ID in the API|
-| amount  | Double | amount of the transaction|
-| currency  | Integer | transaction currency (1: HKD, 2: RMB)|
-| gateway  | Integer | transaction gateway (2: UnionPay 4: Alipay Online)|
-| wallet  | Integer | Alipay wallet type (1: HK, 2: CN) |
-| extraParam | JSON | (Optional) Extra infomation of the transaction |
-| notify_url | Url | (Optional) Notify Url of the transaction |
-| return_url | Url | (Optional) Return Url of the transaction |
+| Parameter   | Type    | Description                                        |
+| ----------- | ------- | -------------------------------------------------- |
+| accessToken | String  | AccessToken used to access API                     |
+| environment | String  | Environment ( 'staging' or 'production' )          |
+| storeId     | String  | Store ID in the API                                |
+| amount      | Double  | amount of the transaction                          |
+| currency    | Integer | transaction currency (1: HKD, 2: RMB)              |
+| gateway     | Integer | transaction gateway (2: UnionPay 4: Alipay Online) |
+| wallet      | Integer | Alipay wallet type (1: HK, 2: CN)                  |
+| extraParam  | JSON    | (Optional) Extra infomation of the transaction     |
+| notify_url  | Url     | (Optional) Notify Url of the transaction           |
+| return_url  | Url     | (Optional) Return Url of the transaction           |
 
 * Online Payment
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| apiKey | String | Api Key used to access API |
-| environment | String | Environment ( 'staging' or 'production' )|
-| customId | String | Custom ID in the API|
-| amount  | Double | amount of the transaction|
-| currency  | Integer | transaction currency (1: HKD)|
-| notify_url | Url | Notify Url of the transaction |
-| return_url | Url | Return Url of the transaction |
-| gatewayCode  | String | (Optional) transaction gateway code (4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online) |
-| wallet  | Integer | (Optional) Alipay wallet type (1: HK, 2: CN) |
-| subject | String | (Optional) Product Name of the transaction |
-| expiryTime | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800) |
+| Parameter   | Type    | Description                                                                                |
+| ----------- | ------- | ------------------------------------------------------------------------------------------ |
+| apiKey      | String  | Api Key used to access API                                                                 |
+| environment | String  | Environment ( 'staging' or 'production' )                                                  |
+| customId    | String  | Custom ID in the API                                                                       |
+| amount      | Double  | amount of the transaction                                                                  |
+| currency    | Integer | transaction currency (1: HKD)                                                              |
+| notify_url  | Url     | Notify Url of the transaction                                                              |
+| return_url  | Url     | Return Url of the transaction                                                              |
+| gatewayCode | String  | (Optional) transaction gateway code (4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online) |
+| wallet      | Integer | (Optional) Alipay wallet type (1: HK, 2: CN)                                               |
+| subject     | String  | (Optional) Product Name of the transaction                                                 |
+| expiryTime  | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800)                  |
 
 * Refund
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| accessToken | String | (Required without apiKey) AccessToken used to access API |
-| apiKey | String | (Required without accessToken) Api Key used to access API |
-| environment | String | Environment ( 'staging' or 'production' )|
-| transactionId | String | Transaction ID in the API|
-| reason  | String | (Optional) refund reason of the transaction|
+| Parameter     | Type   | Description                                               |
+| ------------- | ------ | --------------------------------------------------------- |
+| accessToken   | String | (Required without apiKey) AccessToken used to access API  |
+| apiKey        | String | (Required without accessToken) Api Key used to access API |
+| environment   | String | Environment ( 'staging' or 'production' )                 |
+| transactionId | String | Transaction ID in the API                                 |
+| reason        | String | (Optional) refund reason of the transaction               |
+
+* Refund by Custom ID
+
+| Parameter   | Type   | Description                                               |
+| ----------- | ------ | --------------------------------------------------------- |
+| apiKey      | String | (Required without accessToken) Api Key used to access API |
+| environment | String | Environment ( 'staging' or 'production' )                 |
+| customId    | String | Custom ID in the API                                      |
+| reason      | String | (Optional) refund reason of the transaction               |
 
 ### Result
 
 * Success
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| message | string | Response message |
-| data | string(JSON) | Data of the response |
+| Parameter | Type         | Description          |
+| --------- | ------------ | -------------------- |
+| message   | string       | Response message     |
+| data      | string(JSON) | Data of the response |
 
 * Error
 
-| Parameter | Type | Description |
-| --- | --- | --- |
-| message | string | Response message |
-| errorCode | int | HTTP standard response code |
-| error | string | Detail of the error |
+| Parameter | Type   | Description                 |
+| --------- | ------ | --------------------------- |
+| message   | string | Response message            |
+| errorCode | int    | HTTP standard response code |
+| error     | string | Detail of the error         |
 
 * Exampe Precreate Transaction Implementation
 
@@ -182,4 +191,26 @@ Sending Refund Request
     // with reason
     $client->refund($transactionId, $reason)->getData();
 
-For the complete Code Check the examples folder: 
+* Exampe Refund by Custom ID Implementation
+
+Input parameters
+    
+    //mandatory parameters
+    $customId = 'J84OFPAN';
+    //optional parameter: reason (String)
+    $reason = 'testing';
+    
+
+Create instance of Client
+
+    // with apiKey
+    $client = new Client(Library::STAGING, $apiKey, false);
+    
+Sending Refund by Custom ID Request
+    
+    // general 
+    $client->refundByCustomId($customId)->getData();
+    // with reason
+    $client->refundByCustomId($customId, $reason)->getData();
+
+For the complete Code Check the examples folder
