@@ -31,34 +31,34 @@ In order to start using the API, you need to get Your Personal Access Token or A
 
 * Precreate
 
-| Parameter   | Type    | Description                                        |
-| ----------- | ------- | -------------------------------------------------- |
-| accessToken | String  | AccessToken used to access API                     |
-| environment | String  | Environment ( 'staging' or 'production' )          |
-| storeId     | String  | Store ID in the API                                |
-| amount      | Double  | amount of the transaction                          |
-| currency    | Integer | transaction currency (1: HKD, 2: RMB)              |
-| gateway     | Integer | transaction gateway (2: UnionPay 4: Alipay Online) |
-| wallet      | Integer | Alipay wallet type (1: HK, 2: CN)                  |
-| extraParam  | JSON    | (Optional) Extra infomation of the transaction     |
-| notify_url  | Url     | (Optional) Notify Url of the transaction           |
-| return_url  | Url     | (Optional) Return Url of the transaction           |
+| Parameter   | Type    | Description                                       |
+| ----------- | ------- | ------------------------------------------------- |
+| accessToken | String  | AccessToken used to access API                    |
+| environment | String  | Environment ( 'staging' or 'production' )         |
+| storeId     | String  | Store ID in the API                               |
+| amount      | Double  | amount of the transaction                         |
+| currency    | Integer | transaction currency (1: HKD)                     |
+| gateway     | Integer | transaction gateway (1: Alipay, 4: Alipay Online) |
+| wallet      | Integer | Alipay wallet type (1: HK, 2: CN)                 |
+| extraParam  | JSON    | (Optional) Extra infomation of the transaction    |
+| notify_url  | Url     | (Optional) Notify Url of the transaction          |
+| return_url  | Url     | (Optional) Return Url of the transaction          |
 
 * Online Payment
 
-| Parameter   | Type    | Description                                                                                |
-| ----------- | ------- | ------------------------------------------------------------------------------------------ |
-| apiKey      | String  | Api Key used to access API                                                                 |
-| environment | String  | Environment ( 'staging' or 'production' )                                                  |
-| customId    | String  | Custom ID in the API                                                                       |
-| amount      | Double  | amount of the transaction                                                                  |
-| currency    | Integer | transaction currency (1: HKD)                                                              |
-| notify_url  | Url     | Notify Url of the transaction                                                              |
-| return_url  | Url     | Return Url of the transaction                                                              |
-| gatewayCode | String  | (Optional) transaction gateway code (4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online) |
-| wallet      | Integer | (Optional) Alipay wallet type (1: HK, 2: CN)                                               |
-| subject     | String  | (Optional) Product Name of the transaction                                                 |
-| expiryTime  | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800)                  |
+| Parameter   | Type    | Description                                                                                                        |
+| ----------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
+| apiKey      | String  | Api Key used to access API                                                                                         |
+| environment | String  | Environment ( 'staging' or 'production' )                                                                          |
+| customId    | String  | Custom ID in the API                                                                                               |
+| amount      | Double  | amount of the transaction                                                                                          |
+| currency    | Integer | transaction currency (1: HKD)                                                                                      |
+| notify_url  | Url     | Notify Url of the transaction                                                                                      |
+| return_url  | Url     | Return Url of the transaction                                                                                      |
+| gatewayCode | String  | (Optional) transaction gateway code (4_1: Alipay Online WAP, 4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online) |
+| wallet      | Integer | (Optional) Alipay wallet type (1: HK, 2: CN)                                                                       |
+| subject     | String  | (Optional) Product Name of the transaction                                                                         |
+| expiryTime  | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800)                                          |
 
 * Refund
 
@@ -118,7 +118,7 @@ Create instance of Client
 (Optional) Setting Transaction parameters
 
     //changing transaction currency (default: HKD)
-    $client->setCurrency(Client::INDEX_CURRENCY_RMB);
+    $client->setCurrency(Client::INDEX_CURRENCY_HKD);
     //changing alipay wallet type (default: HK)
     $client->setWallet(Client::INDEX_WALLET_CN);
     
@@ -155,7 +155,7 @@ Create instance of Client
     //changing transaction currency (default: HKD)
     $client->setCurrency(Client::INDEX_CURRENCY_HKD);
     //set transaction gateway code
-    $client->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE);
+    $client->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE);
     //set transaction gateway wallet type (default: HK)
     $client->setWallet(Client::INDEX_WALLET_CN);
     //set production name of transaction

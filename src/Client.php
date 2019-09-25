@@ -28,10 +28,10 @@ class Client
     private $refundCustomIdPath = '/online-payment/%s/refund';
 
     const INDEX_GATEWAY_ALIPAY = 1;
-    const INDEX_GATEWAY_UNIONPAY = 2;
     const INDEX_GATEWAY_ALIPAY_ONLINE = 4;
 
-    const INDEX_GATEWAY_CODE_ALIPAY_ONLINE = '4_2';
+    const INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP = '4_1';
+    const INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE = '4_2';
     const INDEX_GATEWAY_CODE_WECHATPAY_ONLINE = '8_2';
 
     const INDEX_WALLET_HK = 1;
@@ -40,9 +40,7 @@ class Client
     const CN_WALLET = 'CN';
 
     const INDEX_CURRENCY_HKD = 1;
-    const INDEX_CURRENCY_RMB = 2;
     const CURRENCY_HKD = 'HKD';
-    const CURRENCY_RMB = 'RMB';
 
     /**
      * Client constructor.
@@ -134,7 +132,9 @@ class Client
         $parameter = $this->getExpiryTime() ? array_merge($parameter, ['expiry_time' => $this->getExpiryTime()]) : $parameter;
         if ($this->getGatewayCode()) {
             $parameter = array_merge($parameter, ['gateway_code' => $this->getGatewayCode()]);
-            if ($this->getGatewayCode() == static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE) {
+            if ($this->getGatewayCode() == static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP || 
+                $this->getGatewayCode() == static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE
+            ) {
                 $parameter = array_merge($parameter, ['wallet' => $this->getWallet()]);
             }
         }
@@ -169,7 +169,7 @@ class Client
         }
         $params['custom_id'] = $customId;
         $this->path = sprintf($this->refundCustomIdPath, $customId);
-        if($reason != null){
+        if ($reason != null) {
             $params['refund_reason'] = $reason;
         }
         return $this->curl->call($this->path, 'PUT', $params);
@@ -233,9 +233,6 @@ class Client
             case static::INDEX_CURRENCY_HKD:
                 $this->currency = static::CURRENCY_HKD;
                 break;
-            case static::INDEX_CURRENCY_RMB:
-                $this->currency = static::CURRENCY_RMB;
-                break;
             default:
                 throw new Exception('Currency not supported yet');
         }
@@ -279,7 +276,6 @@ class Client
     {
         switch ($gateway) {
             case static::INDEX_GATEWAY_ALIPAY:
-            case static::INDEX_GATEWAY_UNIONPAY:
             case static::INDEX_GATEWAY_ALIPAY_ONLINE:
                 $this->gateway = $gateway;
                 break;
@@ -396,7 +392,8 @@ class Client
     public function setGatewayCode($gatewayCode)
     {
         switch ($gatewayCode) {
-            case static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE:
+            case static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP:
+            case static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE:
             case static::INDEX_GATEWAY_CODE_WECHATPAY_ONLINE:
                 $this->gatewayCode = $gatewayCode;
                 break;

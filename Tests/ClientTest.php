@@ -193,13 +193,6 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result->getCurrency());
     }
 
-    public function test_set_currency_rmb()
-    {
-        $expected = Client::CURRENCY_RMB;
-        $result = $this->class->setCurrency(Client::INDEX_CURRENCY_RMB);
-        $this->assertEquals($expected, $result->getCurrency());
-    }
-
     public function test_set_currency_error()
     {
         $this->setExpectedException(Exception::class);
@@ -210,13 +203,6 @@ class ClientTest extends PHPUnit_Framework_TestCase
     {
         $expected = Client::INDEX_GATEWAY_ALIPAY;
         $result = $this->class->setGateway(Client::INDEX_GATEWAY_ALIPAY);
-        $this->assertEquals($expected, $result->getGateway());
-    }
-
-    public function test_set_gateway_unionpay()
-    {
-        $expected = Client::INDEX_GATEWAY_UNIONPAY;
-        $result = $this->class->setGateway(Client::INDEX_GATEWAY_UNIONPAY);
         $this->assertEquals($expected, $result->getGateway());
     }
 
@@ -239,10 +225,24 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->class->precreate('1234', 1);
     }
 
-    public function test_set_gateway_code_alipay_online()
+    public function test_set_gateway_code_alipay_online_wap()
     {
-        $expected = Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE;
-        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE);
+        $expected = Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP;
+        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP);
+        $this->assertEquals($expected, $result->getGatewayCode());
+    }
+
+    public function test_set_gateway_code_alipay_online_pc2mobile()
+    {
+        $expected = Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE;
+        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE);
+        $this->assertEquals($expected, $result->getGatewayCode());
+    }
+
+    public function test_set_gateway_code_wechat_pay_online()
+    {
+        $expected = Client::INDEX_GATEWAY_CODE_WECHATPAY_ONLINE;
+        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_WECHATPAY_ONLINE);
         $this->assertEquals($expected, $result->getGatewayCode());
     }
 
@@ -362,7 +362,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
             'message' => 'Unauthenticated.',
             'status' => 401
         ]));
-        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE)
+        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE)
                     ->setCurl($mockCurl)
                     ->onlinePayment('1234', 1);
         $this->assertTrue($result instanceof Error);
