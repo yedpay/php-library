@@ -302,6 +302,18 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Error);
     }
 
+    public function test_refund_with_reason()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+        $result = $this->class->setCurl($mockCurl)->refund('1234567', 'test_reason');
+        $this->assertTrue($result instanceof Error);
+    }
+
     public function test_precreate_with_extraparam()
     {
         $mockCurl = $this->mockCurl;
@@ -423,6 +435,18 @@ class ClientTest extends PHPUnit_Framework_TestCase
             'status' => 401
         ]));
         $result = $this->class->setCurl($mockCurl)->refundByCustomId('1234567');
+        $this->assertTrue($result instanceof Error);
+    }
+
+    public function test_refund_by_custom_id_with_reason()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+        $result = $this->class->setCurl($mockCurl)->refundByCustomId('1234567', 'test_reason');
         $this->assertTrue($result instanceof Error);
     }
 }
