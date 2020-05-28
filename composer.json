@@ -1,7 +1,7 @@
 {
     "name": "yedpay/php-library",
-    "description": "Agnostic Library to use the Yedpay API for Precretae transactions",
-    "version": "1.2.1",
+    "description": "Agnostic Library to use the Yedpay API for Precreate transactions",
+    "version": "1.2.2",
     "type": "library",
     "require": {
         "php": ">=5.5"

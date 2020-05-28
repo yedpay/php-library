@@ -246,6 +246,20 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result->getGatewayCode());
     }
 
+    public function test_set_gateway_code_unionpay_expresspay()
+    {
+        $expected = Client::INDEX_GATEWAY_CODE_UNIONPAY_EXPRESSPAY;
+        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_UNIONPAY_EXPRESSPAY);
+        $this->assertEquals($expected, $result->getGatewayCode());
+    }
+
+    public function test_set_gateway_code_unionpay_wap()
+    {
+        $expected = Client::INDEX_GATEWAY_CODE_UNIONPAY_UPOP;
+        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_UNIONPAY_UPOP);
+        $this->assertEquals($expected, $result->getGatewayCode());
+    }
+
     public function test_set_gateway_code_unknown()
     {
         $this->setExpectedException(Exception::class);

@@ -40,7 +40,7 @@ In order to start using the API, you need to get Your Personal Access Token or A
 | currency    | Integer | transaction currency (1: HKD)                     |
 | gateway     | Integer | transaction gateway (1: Alipay, 4: Alipay Online) |
 | wallet      | Integer | Alipay wallet type (1: HK, 2: CN)                 |
-| extraParam  | JSON    | (Optional) Extra infomation of the transaction    |
+| extraParam  | JSON    | (Optional) Extra information of the transaction   |
 | notify_url  | Url     | (Optional) Notify Url of the transaction          |
 | return_url  | Url     | (Optional) Return Url of the transaction          |
 
@@ -55,7 +55,7 @@ In order to start using the API, you need to get Your Personal Access Token or A
 | currency    | Integer | transaction currency (1: HKD)                                                                                      |
 | notify_url  | Url     | Notify Url of the transaction                                                                                      |
 | return_url  | Url     | Return Url of the transaction                                                                                      |
-| gatewayCode | String  | (Optional) transaction gateway code (4_1: Alipay Online WAP, 4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online) |
+| gatewayCode | String  | (Optional) transaction gateway code (4_1: Alipay Online WAP, 4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online, 9_1: UnionPay ExpressPay, 9_5: UnionPay UPOP) |
 | wallet      | Integer | (Optional) Alipay wallet type (1: HK, 2: CN)                                                                       |
 | subject     | String  | (Optional) Product Name of the transaction                                                                         |
 | expiryTime  | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800)                                          |
@@ -96,7 +96,7 @@ In order to start using the API, you need to get Your Personal Access Token or A
 | errorCode | int    | HTTP standard response code |
 | error     | string | Detail of the error         |
 
-* Exampe Precreate Transaction Implementation
+* Example Precreate Transaction Implementation
 
 Input parameters
     
@@ -133,7 +133,7 @@ Sending Precreate Request
             json_encode($extraParam)
     )->getData();
 
-* Exampe Online Payment Implementation
+* Example Online Payment Implementation
 
 Input parameters
     
@@ -167,7 +167,7 @@ Sending Online Payment Request
 
     $client->onlinePayment($customId, $amount)->getData();
 
-* Exampe Refund Transaction Implementation
+* Example Refund Transaction Implementation
 
 Input parameters
     
@@ -191,7 +191,7 @@ Sending Refund Request
     // with reason
     $client->refund($transactionId, $reason)->getData();
 
-* Exampe Refund by Custom ID Implementation
+* Example Refund by Custom ID Implementation
 
 Input parameters
     

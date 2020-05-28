@@ -34,7 +34,7 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Library);
     }
 
-    public function test_get_production_return_string_if_not_setted()
+    public function test_get_production_return_string_if_not_set()
     {
         $this->assertFalse(is_null($this->class->getProduction()));
     }
@@ -45,7 +45,7 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Library);
     }
 
-    public function test_get_staging_return_string_if_not_setted()
+    public function test_get_staging_return_string_if_not_set()
     {
         $this->assertFalse(is_null($this->class->getStaging()));
     }
@@ -56,7 +56,7 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Library);
     }
 
-    public function test_get_version_return_string_if_not_setted()
+    public function test_get_version_return_string_if_not_set()
     {
         $this->assertFalse(is_null($this->class->getVersion()));
     }
@@ -67,12 +67,12 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Library);
     }
 
-    public function test_get_access_token_return_null_if_not_setted()
+    public function test_get_access_token_return_null_if_not_set()
     {
         $this->assertTrue(is_null($this->class->getAccessToken()));
     }
 
-    public function test_get_access_token_return_value_if_setted()
+    public function test_get_access_token_return_value_if_set()
     {
         $value = 'string';
         $result = $this->class->setAccessToken($value);
@@ -85,12 +85,12 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Library);
     }
 
-    public function test_get_api_key_return_null_if_not_setted()
+    public function test_get_api_key_return_null_if_not_set()
     {
         $this->assertTrue(is_null($this->class->getApiKey()));
     }
 
-    public function test_get_api_key_return_value_if_setted()
+    public function test_get_api_key_return_value_if_set()
     {
         $value = 'string';
         $result = $this->class->setApiKey($value);
@@ -109,7 +109,7 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Library);
     }
 
-    public function test_get_environment_return_string_if_not_setted()
+    public function test_get_environment_return_string_if_not_set()
     {
         $this->assertTrue(!is_null($this->class->getEnvironment()));
     }

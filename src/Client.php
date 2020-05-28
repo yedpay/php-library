@@ -33,6 +33,8 @@ class Client
     const INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP = '4_1';
     const INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE = '4_2';
     const INDEX_GATEWAY_CODE_WECHATPAY_ONLINE = '8_2';
+    const INDEX_GATEWAY_CODE_UNIONPAY_EXPRESSPAY = '9_1';
+    const INDEX_GATEWAY_CODE_UNIONPAY_UPOP = '9_5';
 
     const INDEX_WALLET_HK = 1;
     const INDEX_WALLET_CN = 2;
@@ -132,7 +134,7 @@ class Client
         $parameter = $this->getExpiryTime() ? array_merge($parameter, ['expiry_time' => $this->getExpiryTime()]) : $parameter;
         if ($this->getGatewayCode()) {
             $parameter = array_merge($parameter, ['gateway_code' => $this->getGatewayCode()]);
-            if ($this->getGatewayCode() == static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP || 
+            if ($this->getGatewayCode() == static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP ||
                 $this->getGatewayCode() == static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE
             ) {
                 $parameter = array_merge($parameter, ['wallet' => $this->getWallet()]);
@@ -395,6 +397,8 @@ class Client
             case static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP:
             case static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE:
             case static::INDEX_GATEWAY_CODE_WECHATPAY_ONLINE:
+            case static::INDEX_GATEWAY_CODE_UNIONPAY_EXPRESSPAY:
+            case static::INDEX_GATEWAY_CODE_UNIONPAY_UPOP:
                 $this->gatewayCode = $gatewayCode;
                 break;
             default:
