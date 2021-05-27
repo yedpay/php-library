@@ -166,34 +166,36 @@ class Client
     /**
      * @param $transactionId
      * @param $reason
+     * @param $amount
      * @return Response\Response
      * @throws Exception
      */
-    public function refund($transactionId, $reason = null)
+    public function refund($transactionId, $reason = null, $amount = null)
     {
         if (!$this->curl) {
             throw new Exception('Please set curl with credentials first');
         }
         $this->path = sprintf($this->refundPath, $transactionId);
-        return $this->curl->call($this->path, 'POST', !empty($reason) ? ['refund_reason' => $reason] : []);
+
+        $params = $this->setRefundParameters($reason, $amount);
+        return $this->curl->call($this->path, 'POST', $params);
     }
 
     /**
      * @param $customId
      * @param $reason
+     * @param $amount
      * @return Response\Response
      * @throws Exception
      */
-    public function refundByCustomId($customId, $reason = null)
+    public function refundByCustomId($customId, $reason = null, $amount = null)
     {
         if (!$this->curl) {
             throw new Exception('Please set curl with credentials first');
         }
-        $params['custom_id'] = $customId;
         $this->path = sprintf($this->refundCustomIdPath, $customId);
-        if ($reason != null) {
-            $params['refund_reason'] = $reason;
-        }
+
+        $params = $this->setRefundParameters($reason, $amount, $customId);
         return $this->curl->call($this->path, 'PUT', $params);
     }
 
@@ -507,5 +509,32 @@ class Client
         $this->paymentData = $paymentData;
 
         return $this;
+    }
+
+    /**
+     * Set the parameters of refund
+     *
+     * @param $reason
+     * @param $amount
+     * @param $customId
+     * @return array
+     * @throws Exception
+     */
+    public function setRefundParameters($reason = null, $amount = null, $customId = null)
+    {
+        $params = [];
+        if (!empty($customId)) {
+            $params['custom_id'] = $customId;
+        }
+        if (!empty($reason)) {
+            $params['refund_reason'] = $reason;
+        }
+        if (!empty($amount)) {
+            if (!is_numeric($amount)) {
+                throw new Exception('Refund amount should be numeric');
+            }
+            $params['amount'] = $amount;
+        }
+        return $params;
     }
 }

@@ -215,6 +215,8 @@ Sending Refund Request
     $client->refund($transactionId)->getData();
     // with reason
     $client->refund($transactionId, $reason)->getData();
+    // with amount
+    $client->refund($transactionId, $reason, $amount)->getData();
 
 * Example Refund by Custom ID Implementation
 
@@ -237,5 +239,7 @@ Sending Refund by Custom ID Request
     $client->refundByCustomId($customId)->getData();
     // with reason
     $client->refundByCustomId($customId, $reason)->getData();
+    // with amount
+    $client->refundByCustomId($customId, $reason, $amount)->getData();
 
 For the complete Code Check the examples folder

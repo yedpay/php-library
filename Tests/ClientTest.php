@@ -391,6 +391,18 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Error);
     }
 
+    public function test_refund_with_amount()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+        $result = $this->class->setCurl($mockCurl)->refund('1234567', null, '123.45');
+        $this->assertTrue($result instanceof Error);
+    }
+
     public function test_precreate_with_extra_param()
     {
         $mockCurl = $this->mockCurl;
@@ -543,5 +555,49 @@ class ClientTest extends PHPUnit_Framework_TestCase
         ]));
         $result = $this->class->setCurl($mockCurl)->refundByCustomId('1234567', 'test_reason');
         $this->assertTrue($result instanceof Error);
+    }
+
+    public function test_refund_by_custom_id_with_amount()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+        $result = $this->class->setCurl($mockCurl)->refundByCustomId('1234567', null, '123.45');
+        $this->assertTrue($result instanceof Error);
+    }
+
+    public function test_set_refund_parameters()
+    {
+        $result = $this->class->setRefundParameters('test_reason', '123.00', 'test_custom_id');
+        $this->assertTrue($result['refund_reason'] == 'test_reason');
+        $this->assertTrue($result['amount'] == '123.00');
+        $this->assertTrue($result['custom_id'] == 'test_custom_id');
+    }
+
+    public function test_set_refund_parameters_with_null_reason()
+    {
+        $result = $this->class->setRefundParameters(null, '123.00', 'test_custom_id');
+        $this->assertTrue(!isset($result['refund_reason']));
+    }
+
+    public function test_set_refund_parameters_with_null_amount()
+    {
+        $result = $this->class->setRefundParameters('test_reason', null, 'test_custom_id');
+        $this->assertTrue(!isset($result['amount']));
+    }
+
+    public function test_set_refund_parameters_with_null_custom_id()
+    {
+        $result = $this->class->setRefundParameters('test_reason', '123.00', null);
+        $this->assertTrue(!isset($result['custom_id']));
+    }
+
+    public function test_set_refund_parameters_with_non_numeric_amount()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->setRefundParameters(null, 'test', null);
     }
 }
