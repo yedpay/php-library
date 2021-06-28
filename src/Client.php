@@ -21,11 +21,16 @@ class Client
     private $subject;
     private $expiryTime;
     private $gatewayCode;
+    private $metadata;
+    private $paymentData;
 
     private $precreatePath = '/precreate/%s';
     private $onlinePaymentPath = '/online-payment';
     private $refundPath = '/transactions/%s/refund';
     private $refundCustomIdPath = '/online-payment/%s/refund';
+
+    const LIBRARY_NAME = 'Yedpay-php-library';
+    const LIBRARY_VERSION = '1.3.0';
 
     const INDEX_GATEWAY_ALIPAY = 1;
     const INDEX_GATEWAY_ALIPAY_ONLINE = 4;
@@ -35,6 +40,7 @@ class Client
     const INDEX_GATEWAY_CODE_WECHATPAY_ONLINE = '8_2';
     const INDEX_GATEWAY_CODE_UNIONPAY_EXPRESSPAY = '9_1';
     const INDEX_GATEWAY_CODE_UNIONPAY_UPOP = '9_5';
+    const INDEX_GATEWAY_CODE_CREDIT_CARD_ONLINE = '12_1';
 
     const INDEX_WALLET_HK = 1;
     const INDEX_WALLET_CN = 2;
@@ -140,6 +146,20 @@ class Client
                 $parameter = array_merge($parameter, ['wallet' => $this->getWallet()]);
             }
         }
+
+        // metadata
+        $metadataArray = [
+            'php_library' => self::LIBRARY_VERSION,
+            'php' => phpversion(),
+        ];
+        if ($this->getMetadata()) {
+            $requestMetadata = json_decode($this->getMetadata(), true);
+            $metadataArray = array_merge($requestMetadata, $metadataArray);
+        }
+        $parameter = array_merge($parameter, ['metadata' => json_encode($metadataArray)]);
+
+        $parameter = $this->getPaymentData() ? array_merge($parameter, ['payment_data' => $this->getPaymentData()]) : $parameter;
+
         return $this->curl->call($this->path, 'POST', $parameter);
     }
 
@@ -399,11 +419,93 @@ class Client
             case static::INDEX_GATEWAY_CODE_WECHATPAY_ONLINE:
             case static::INDEX_GATEWAY_CODE_UNIONPAY_EXPRESSPAY:
             case static::INDEX_GATEWAY_CODE_UNIONPAY_UPOP:
+            case static::INDEX_GATEWAY_CODE_CREDIT_CARD_ONLINE:
                 $this->gatewayCode = $gatewayCode;
                 break;
             default:
                 throw new Exception('Gateway not supported yet');
         }
+        return $this;
+    }
+
+    /**
+     * Get the value of metadata
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * Set the value of metadata
+     *
+     * @return  self
+     */
+    public function setMetadata($metadata)
+    {
+        $metadataArray = json_decode($metadata, true);
+        if (!is_array($metadataArray)) {
+            throw new Exception('metadata should be JSON type');
+        }
+
+        $validateKeyArray = [
+            'opencart',
+            'yedpay_for_opencart',
+            'woocommerce',
+            'yedpay_for_woocommerce',
+            'wordpress',
+        ];
+
+        foreach ($metadataArray as $key => $array) {
+            if (!in_array($key, $validateKeyArray)) {
+                throw new Exception('metadata should not contain invalid field');
+            }
+        }
+
+        $this->metadata = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of paymentData
+     */
+    public function getPaymentData()
+    {
+        return $this->paymentData;
+    }
+
+    /**
+     * Set the value of paymentData
+     *
+     * @return  self
+     */
+    public function setPaymentData($paymentData)
+    {
+        // check json and parameters
+        $paymentDataArray = json_decode($paymentData, true);
+        if (!is_array($paymentDataArray)) {
+            throw new Exception('payment data should be JSON type');
+        }
+
+        $validateKeyArray = [
+            'email',
+            'billing_country',
+            'billing_city',
+            'billing_address1',
+            'billing_address2',
+            'billing_post_code',
+            'billing_state',
+        ];
+
+        foreach ($paymentDataArray as $key => $array) {
+            if (!in_array($key, $validateKeyArray)) {
+                throw new Exception('payment data should not contain invalid field');
+            }
+        }
+
+        $this->paymentData = $paymentData;
+
         return $this;
     }
 }

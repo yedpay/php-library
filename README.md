@@ -55,10 +55,12 @@ In order to start using the API, you need to get Your Personal Access Token or A
 | currency    | Integer | transaction currency (1: HKD)                                                                                      |
 | notify_url  | Url     | Notify Url of the transaction                                                                                      |
 | return_url  | Url     | Return Url of the transaction                                                                                      |
-| gatewayCode | String  | (Optional) transaction gateway code (4_1: Alipay Online WAP, 4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online, 9_1: UnionPay ExpressPay, 9_5: UnionPay UPOP) |
+| gatewayCode | String  | (Optional) transaction gateway code (4_1: Alipay Online WAP, 4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online, 9_1: UnionPay ExpressPay, 9_5: UnionPay UPOP, 12_1: Credit Card Online) |
 | wallet      | Integer | (Optional) Alipay wallet type (1: HK, 2: CN)                                                                       |
 | subject     | String  | (Optional) Product Name of the transaction                                                                         |
 | expiryTime  | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800)                                          |
+| metadata    | Json    | (Optional) metadata for plugin information                                                                         |
+| paymentData | Json    | (Optional) Payment Data that will include in the payment page (Card payment only, support `email`, `billing_country`, `billing_city`, `billing_address1`, `billing_address2`, `billing_post_code`, `billing_state`) |
 
 * Refund
 
@@ -66,7 +68,7 @@ In order to start using the API, you need to get Your Personal Access Token or A
 | ------------- | ------ | --------------------------------------------------------- |
 | accessToken   | String | (Required without apiKey) AccessToken used to access API  |
 | apiKey        | String | (Required without accessToken) Api Key used to access API |
-| environment   | String | Environment ( 'staging' or 'production' )                 |
+| environment   | String | Environment ( `staging` or `production` )                 |
 | transactionId | String | Transaction ID in the API                                 |
 | reason        | String | (Optional) refund reason of the transaction               |
 
@@ -154,14 +156,37 @@ Create instance of Client
 
     //changing transaction currency (default: HKD)
     $client->setCurrency(Client::INDEX_CURRENCY_HKD);
+
     //set transaction gateway code
     $client->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE);
+
     //set transaction gateway wallet type (default: HK)
     $client->setWallet(Client::INDEX_WALLET_CN);
+
     //set production name of transaction
     $client->setSubject('Product');
+
     //set expiry time of transaction
     $client->setExpiryTime(900);
+
+    //set metadata of online payment
+    $metadata = json_encode([
+        'woocommerce' => '1.0',
+        'yedpay_for_woocommerce' => '1.0',
+        'wordpress' => '1.0',
+    ]);
+    $client->setMetadata($metadata);
+
+    //set payment data of online payment
+    $paymentData = json_encode([
+        'email' => 'info@example.com',
+        'billing_country' => 'HK',
+        'billing_city' => 'Hong Kong',
+        'billing_address1' => 'Address1',
+        'billing_address2' => 'Address2',
+        'billing_post_code' => '000000',
+    ]);
+    $client->setPaymentData($paymentData);
     
 Sending Online Payment Request
 

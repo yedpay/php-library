@@ -2,6 +2,8 @@
 
 namespace Yedpay\Curl;
 
+use Yedpay\Client;
+
 class Request implements HttpRequest
 {
     private $handle = null;
@@ -41,6 +43,7 @@ class Request implements HttpRequest
             CURLOPT_HTTPHEADER => [
                 'Authorization: ' . ($isAccessToken ? 'Bearer ' : 'API-KEY ') . $token,
                 'Content-Type: application/x-www-form-urlencoded',
+                'User-Agent: ' . Client::LIBRARY_NAME . '/' . Client::LIBRARY_VERSION,
             ]
         ]);
     }

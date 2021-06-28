@@ -260,6 +260,13 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result->getGatewayCode());
     }
 
+    public function test_set_gateway_code_credit_card_online()
+    {
+        $expected = Client::INDEX_GATEWAY_CODE_CREDIT_CARD_ONLINE;
+        $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_CREDIT_CARD_ONLINE);
+        $this->assertEquals($expected, $result->getGatewayCode());
+    }
+
     public function test_set_gateway_code_unknown()
     {
         $this->setExpectedException(Exception::class);
@@ -284,6 +291,62 @@ class ClientTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(Exception::class);
         $this->class->setExpiryTime(1);
+    }
+
+    public function test_set_metadata()
+    {
+        $expected = json_encode([
+            'woocommerce' => '1.0',
+            'yedpay_for_woocommerce' => '1.0',
+            'wordpress' => '1.0',
+        ]);
+        $result = $this->class->setMetadata($expected);
+        $this->assertEquals($expected, $result->getMetadata());
+    }
+
+    public function test_set_metadata_not_array()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->setMetadata('');
+    }
+
+    public function test_set_metadata_key_not_match()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->setMetadata(json_encode([
+            'woocommerce' => '1.0',
+            'test_field' => '1.0',
+        ]));
+    }
+
+    public function test_set_payment_data()
+    {
+        $expected = json_encode([
+            'email' => 'info@example.com',
+            'billing_country' => 'HK',
+            'billing_city' => 'Hong Kong',
+            'billing_address1' => 'Address1',
+            'billing_address2' => 'Address2',
+            'billing_post_code' => '000000',
+        ]);
+        $result = $this->class->setPaymentData($expected);
+        $this->assertEquals($expected, $result->getPaymentData());
+    }
+
+    public function test_set_payment_data_not_array()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->setPaymentData('');
+    }
+
+    public function test_set_payment_data_key_not_match()
+    {
+        $this->setExpectedException(Exception::class);
+        $this->class->setPaymentData(json_encode([
+            'billing_country' => 'HK',
+            'billing_city' => 'Hong Kong',
+            'test_field' => '1.0',
+        ]));
     }
 
     public function test_precreate()
@@ -328,7 +391,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Error);
     }
 
-    public function test_precreate_with_extraparam()
+    public function test_precreate_with_extra_param()
     {
         $mockCurl = $this->mockCurl;
         $mockCurl->method('call')->willReturn(new Error([
@@ -380,7 +443,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result instanceof Error);
     }
 
-    public function test_precreate_with_gateway_code()
+    public function test_online_payment_with_gateway_code()
     {
         $mockCurl = $this->mockCurl;
         $mockCurl->method('call')->willReturn(new Error([
@@ -389,6 +452,24 @@ class ClientTest extends PHPUnit_Framework_TestCase
             'status' => 401
         ]));
         $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE)
+                    ->setCurl($mockCurl)
+                    ->onlinePayment('1234', 1);
+        $this->assertTrue($result instanceof Error);
+    }
+
+    public function test_online_payment_with_metadata()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+
+        $result = $this->class->setMetadata(json_encode([
+                        'opencart' => '1.0',
+                        'yedpay_for_opencart' => '1.0',
+                    ]))
                     ->setCurl($mockCurl)
                     ->onlinePayment('1234', 1);
         $this->assertTrue($result instanceof Error);
