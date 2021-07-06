@@ -4,11 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/yedpay/php-library/compare/1.3.0...HEAD)
 
-## [v1.3.0 (2021-04-xx)](https://github.com/yedpay/php-library/compare/1.2.2...1.3.0)
+## [v1.3.0 (2021-07-08)](https://github.com/yedpay/php-library/compare/1.2.2...1.3.0)
 
 ### Added
 - Online payment support Visa and mastercard
 - Add `setMetadata`, `setPaymentData` method
+- Support partial refund
 
 ## [v1.2.2 (2020-05-28)](https://github.com/yedpay/php-library/compare/1.2.1...1.2.2)
 
