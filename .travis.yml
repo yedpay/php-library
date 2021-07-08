@@ -10,7 +10,7 @@ php:
   - 7.4
   - 8.0
 
-dist: trusty
+dist: xenial
 
 install:
   # Install composer packages
