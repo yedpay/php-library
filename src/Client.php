@@ -148,9 +148,11 @@ class Client
         }
 
         // metadata
+        preg_match("#^\d+(\.\d+)*#", phpversion(), $phpVersionArray);
+
         $metadataArray = [
             'php_library' => self::LIBRARY_VERSION,
-            'php' => phpversion(),
+            'php' => $phpVersionArray[0],
         ];
         if ($this->getMetadata()) {
             $requestMetadata = json_decode($this->getMetadata(), true);
