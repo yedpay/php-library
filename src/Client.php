@@ -30,7 +30,7 @@ class Client
     private $refundCustomIdPath = '/online-payment/%s/refund';
 
     const LIBRARY_NAME = 'Yedpay-php-library';
-    const LIBRARY_VERSION = '1.3.0';
+    const LIBRARY_VERSION = '1.3.1';
 
     const INDEX_GATEWAY_ALIPAY = 1;
     const INDEX_GATEWAY_ALIPAY_ONLINE = 4;

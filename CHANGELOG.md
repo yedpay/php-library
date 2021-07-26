@@ -2,7 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/yedpay/php-library/compare/1.3.0...HEAD)
+## [Unreleased](https://github.com/yedpay/php-library/compare/1.3.1...HEAD)
+
+## [v1.3.1 (2021-07-26)](https://github.com/yedpay/php-library/compare/1.3.0...1.3.1)
+
+### Fixed
+- Get php version number method in `setMetadata` method
 
 ## [v1.3.0 (2021-07-08)](https://github.com/yedpay/php-library/compare/1.2.2...1.3.0)
 
