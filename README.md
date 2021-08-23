@@ -46,21 +46,22 @@ In order to start using the API, you need to get Your Personal Access Token or A
 
 * Online Payment
 
-| Parameter   | Type    | Description                                                                                                        |
-| ----------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
-| apiKey      | String  | Api Key used to access API                                                                                         |
-| environment | String  | Environment ( 'staging' or 'production' )                                                                          |
-| customId    | String  | Custom ID in the API                                                                                               |
-| amount      | Double  | amount of the transaction                                                                                          |
-| currency    | Integer | transaction currency (1: HKD)                                                                                      |
-| notify_url  | Url     | Notify Url of the transaction                                                                                      |
-| return_url  | Url     | Return Url of the transaction                                                                                      |
-| gatewayCode | String  | (Optional) transaction gateway code (4_1: Alipay Online WAP, 4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online, 9_1: UnionPay ExpressPay, 9_5: UnionPay UPOP, 12_1: Credit Card Online) |
-| wallet      | Integer | (Optional) Alipay wallet type (1: HK, 2: CN)                                                                       |
-| subject     | String  | (Optional) Product Name of the transaction                                                                         |
-| expiryTime  | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800)                                          |
-| metadata    | Json    | (Optional) metadata for plugin information                                                                         |
-| paymentData | Json    | (Optional) Payment Data that will include in the payment page (Card payment only, support `email`, `billing_country`, `billing_city`, `billing_address1`, `billing_address2`, `billing_post_code`, `billing_state`) |
+| Parameter        | Type    | Description                                                                                                        |
+| ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
+| apiKey           | String  | Api Key used to access API                                                                                         |
+| environment      | String  | Environment ( 'staging' or 'production' )                                                                          |
+| customId         | String  | Custom ID in the API                                                                                               |
+| amount           | Double  | amount of the transaction                                                                                          |
+| currency         | Integer | transaction currency (1: HKD)                                                                                      |
+| notify_url       | Url     | Notify Url of the transaction                                                                                      |
+| return_url       | Url     | Return Url of the transaction                                                                                      |
+| gatewayCode      | String  | (Optional) transaction gateway code (4_1: Alipay Online WAP, 4_2: Alipay Online PC2Mobile, 8_2: WeChat Pay Online, 9_1: UnionPay ExpressPay, 9_5: UnionPay UPOP, 12_1: Credit Card Online) |
+| wallet           | Integer | (Optional) Alipay wallet type (1: HK, 2: CN)                                                                       |
+| subject          | String  | (Optional) Product Name of the transaction                                                                         |
+| expiryTime       | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800)                                          |
+| metadata         | Json    | (Optional) metadata for plugin information                                                                         |
+| paymentData      | Json    | (Optional) Payment Data that will include in the payment page (Card payment only, support `email`, `billing_country`, `billing_city`, `billing_address1`, `billing_address2`, `billing_post_code`, `billing_state`) |
+| checkoutDomainId | String  | (Optional) Checkout domain Key                                                                                     |
 
 * Refund
 
@@ -187,6 +188,9 @@ Create instance of Client
         'billing_post_code' => '000000',
     ]);
     $client->setPaymentData($paymentData);
+
+    //set checkout domain key of online payment
+    $client->setCheckoutDomainId('J84OFPAN');
     
 Sending Online Payment Request
 

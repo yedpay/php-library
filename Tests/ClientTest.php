@@ -600,4 +600,16 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException(Exception::class);
         $this->class->setRefundParameters(null, 'test', null);
     }
+
+    public function test_method_set_checkout_domain_id_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'setCheckoutDomainId'));
+    }
+
+    public function test_set_checkout_domain_id()
+    {
+        $expected = '123456';
+        $result = $this->class->setCheckoutDomainId('123456');
+        $this->assertEquals($expected, $result->getCheckoutDomainId());
+    }
 }

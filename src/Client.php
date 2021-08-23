@@ -23,6 +23,7 @@ class Client
     private $gatewayCode;
     private $metadata;
     private $paymentData;
+    private $checkoutDomainId;
 
     private $precreatePath = '/precreate/%s';
     private $onlinePaymentPath = '/online-payment';
@@ -30,7 +31,7 @@ class Client
     private $refundCustomIdPath = '/online-payment/%s/refund';
 
     const LIBRARY_NAME = 'Yedpay-php-library';
-    const LIBRARY_VERSION = '1.3.1';
+    const LIBRARY_VERSION = '1.3.2';
 
     const INDEX_GATEWAY_ALIPAY = 1;
     const INDEX_GATEWAY_ALIPAY_ONLINE = 4;
@@ -161,6 +162,8 @@ class Client
         $parameter = array_merge($parameter, ['metadata' => json_encode($metadataArray)]);
 
         $parameter = $this->getPaymentData() ? array_merge($parameter, ['payment_data' => $this->getPaymentData()]) : $parameter;
+
+        $parameter = $this->getCheckoutDomainId() ? array_merge($parameter, ['checkout_domain_id' => $this->getCheckoutDomainId()]) : $parameter;
 
         return $this->curl->call($this->path, 'POST', $parameter);
     }
@@ -538,5 +541,25 @@ class Client
             $params['amount'] = $amount;
         }
         return $params;
+    }
+
+    /**
+     * Get the value of checkoutDomainId
+     */
+    public function getCheckoutDomainId()
+    {
+        return $this->checkoutDomainId;
+    }
+
+    /**
+     * Set the value of checkoutDomainId
+     *
+     * @return  self
+     */
+    public function setCheckoutDomainId($checkoutDomainId)
+    {
+        $this->checkoutDomainId = $checkoutDomainId;
+
+        return $this;
     }
 }
