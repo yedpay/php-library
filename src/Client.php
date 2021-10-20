@@ -461,6 +461,10 @@ class Client
             'woocommerce',
             'yedpay_for_woocommerce',
             'wordpress',
+            'yedpay_for_magento',
+            'magento',
+            'yedpay_for_shopify',
+            'shopify',
         ];
 
         foreach ($metadataArray as $key => $array) {
