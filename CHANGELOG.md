@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased](https://github.com/yedpay/php-library/compare/1.3.2...HEAD)
 
-## [v1.3.2 (2021-09-xx)](https://github.com/yedpay/php-library/compare/1.3.1...1.3.2)
+## [v1.3.2 (2021-11-04)](https://github.com/yedpay/php-library/compare/1.3.1...1.3.2)
 
 ### Added
 - Add `setCheckoutDomainId` method
+- Add new acceptable parameters in `setMetadata` method
 
 ## [v1.3.1 (2021-07-26)](https://github.com/yedpay/php-library/compare/1.3.0...1.3.1)
 

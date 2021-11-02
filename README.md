@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/yedpay/php-library.svg?branch=master)](https://travis-ci.com/yedpay/php-library)
+[![Build Status](https://travis-ci.com/yedpay/php-library.svg?branch=master)](https://travis-ci.com/github/yedpay/php-library)
 [![Coverage Status](https://coveralls.io/repos/github/yedpay/php-library/badge.svg?branch=master)](https://coveralls.io/github/yedpay/php-library?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/yedpay/php-library/v/stable)](https://packagist.org/packages/yedpay/php-library)
 [![composer.lock](https://poser.pugx.org/yedpay/php-library/composerlock)](https://packagist.org/packages/yedpay/php-library)
