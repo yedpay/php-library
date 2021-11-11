@@ -23,7 +23,7 @@ class TestOnlinePaymentClient
     {
         try {
             //default Gateway: Alipay, HK wallet and HKD
-            $client = new Client(static::STAGING, static::API_KEY);
+            $client = new Client(static::STAGING, static::API_KEY, false);
             $client
                 //set currency to HKD
                 ->setCurrency(Client::INDEX_CURRENCY_HKD)
