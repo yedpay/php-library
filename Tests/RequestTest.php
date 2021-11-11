@@ -4,8 +4,9 @@ namespace Yedpay\Tests;
 
 use Yedpay\Curl\Request;
 use Yedpay\Curl\HttpRequest;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
-class RequestTest extends \PHPUnit_Framework_TestCase
+class RequestTest extends TestCase
 {
     protected $path;
     protected $token;
@@ -14,7 +15,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
     protected $request;
 
-    public function setUp()
+    public function set_up()
     {
         $this->path = null;
         $this->token = 'abcdefg';
@@ -29,7 +30,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->request = new Request();
     }
 
-    public function tearDown()
+    public function tear_down()
     {
         $this->path = null;
         $this->token = null;

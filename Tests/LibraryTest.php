@@ -3,12 +3,13 @@
 namespace Yedpay\Tests;
 
 use Yedpay\Library;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
-class YedpayTest extends \PHPUnit_Framework_TestCase
+class YedpayTest extends TestCase
 {
     protected $class = null;
 
-    public function setUp()
+    public function set_up()
     {
         $this->class = new Library();
     }
@@ -75,7 +76,7 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
     public function test_get_access_token_return_value_if_set()
     {
         $value = 'string';
-        $result = $this->class->setAccessToken($value);
+        $this->class->setAccessToken($value);
         $this->assertTrue($this->class->getAccessToken() == $value);
     }
 
@@ -93,13 +94,13 @@ class YedpayTest extends \PHPUnit_Framework_TestCase
     public function test_get_api_key_return_value_if_set()
     {
         $value = 'string';
-        $result = $this->class->setApiKey($value);
+        $this->class->setApiKey($value);
         $this->assertTrue($this->class->getApiKey() == $value);
     }
 
     public function test_set_environment_not_accept_different_of_staging_or_production()
     {
-        $this->setExpectedException("\Exception");
+        $this->expectException("\Exception");
         $this->class->setEnvironment('string');
     }
 

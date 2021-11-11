@@ -3,31 +3,31 @@
 namespace Yedpay\Tests;
 
 use Exception;
-use PHPUnit_Framework_TestCase;
 use Yedpay\Client;
 use Yedpay\Curl;
 use Yedpay\Curl\Request;
 use Yedpay\Library;
 use Yedpay\Response\Error;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Class ClientTest
  * @package Yedpay\Tests
  */
-class ClientTest extends PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     private $class;
     private $mockCurl;
 
     const TEST_URL = 'http:://test.com';
 
-    public function setUp()
+    public function set_up()
     {
         $this->class = new Client();
         $this->mockCurl = $this->getMockBuilder(Curl::class)
             ->setMethods(['call'])
             ->getMock();
-        parent::setUp();
+        parent::set_up();
     }
 
     public function test_class_exists()
@@ -182,7 +182,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_set_wallet_error()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setWallet('Invalid wallet');
     }
 
@@ -195,7 +195,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_set_currency_error()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setCurrency('Invalid currency');
     }
 
@@ -215,13 +215,13 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_set_unknown_gateway()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setGateway(9999);
     }
 
     public function test_precreate_null_curl()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->precreate('1234', 1);
     }
 
@@ -269,7 +269,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_set_gateway_code_unknown()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setGatewayCode(9999);
     }
 
@@ -289,7 +289,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_set_expiry_time_out_of_range()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setExpiryTime(1);
     }
 
@@ -306,13 +306,13 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_set_metadata_not_array()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setMetadata('');
     }
 
     public function test_set_metadata_key_not_match()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setMetadata(json_encode([
             'woocommerce' => '1.0',
             'test_field' => '1.0',
@@ -335,13 +335,13 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_set_payment_data_not_array()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setPaymentData('');
     }
 
     public function test_set_payment_data_key_not_match()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setPaymentData(json_encode([
             'billing_country' => 'HK',
             'billing_city' => 'Hong Kong',
@@ -363,7 +363,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_refund_null_curl()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->refund('1234', 1);
     }
 
@@ -439,7 +439,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_online_payment_null_curl()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->onlinePayment('1234', 1);
     }
 
@@ -529,7 +529,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_refund_by_custom_id_null_curl()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->refundByCustomId('1234', 1);
     }
 
@@ -597,7 +597,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     public function test_set_refund_parameters_with_non_numeric_amount()
     {
-        $this->setExpectedException(Exception::class);
+        $this->expectException(Exception::class);
         $this->class->setRefundParameters(null, 'test', null);
     }
 

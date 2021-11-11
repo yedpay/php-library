@@ -8,12 +8,13 @@ use Yedpay\Curl\Request;
 use Exception;
 use Yedpay\Response\Error;
 use Yedpay\Response\Success;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Class CurlTest
  * @package Yedpay\Tests
  */
-class CurlTest extends \PHPUnit_Framework_TestCase
+class CurlTest extends TestCase
 {
     protected $endpoint;
     protected $path;
@@ -35,7 +36,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     const WRONGFORMAT = 'wrongFormat';
     const CURLERROR = 'curlError';
 
-    public function setUp()
+    public function set_up()
     {
         $this->endpoint = 'https://api-staging.yedpay.com';
         $this->path = '/precreate/7V57';
@@ -59,7 +60,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
                         ->getMock();
     }
 
-    public function tearDown()
+    public function tear_down()
     {
         $this->endpoint = null;
         $this->path = null;

@@ -2,15 +2,14 @@
 
 namespace Yedpay\Tests\Response;
 
-
-use PHPUnit_Framework_TestCase;
 use Yedpay\Response\Success;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 /**
  * Class SuccessTest
  * @package Yedpay\Tests\Response
  */
-class SuccessTest extends PHPUnit_Framework_TestCase
+class SuccessTest extends TestCase
 {
     protected $result;
 
@@ -18,7 +17,7 @@ class SuccessTest extends PHPUnit_Framework_TestCase
 
     protected $data;
 
-    public function setUp()
+    public function set_up()
     {
         $this->data = [
             'obj1' => '1',

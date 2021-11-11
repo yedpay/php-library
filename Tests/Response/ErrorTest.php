@@ -2,11 +2,10 @@
 
 namespace Yedpay\Tests\Response;
 
-
-use PHPUnit_Framework_TestCase;
 use Yedpay\Response\Error;
+use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
-class ErrorTest extends PHPUnit_Framework_TestCase
+class ErrorTest extends TestCase
 {
     protected $result;
 
@@ -21,9 +20,9 @@ class ErrorTest extends PHPUnit_Framework_TestCase
         ]
     ];
 
-    public function setUp()
+    public function set_up()
     {
-        parent::setUp();
+        parent::set_up();
         $this->result = new Error($this->error);
     }
 
