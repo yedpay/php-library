@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/yedpay/php-library/compare/1.3.3...HEAD)
+## [Unreleased](https://github.com/yedpay/php-library/compare/1.3.4...HEAD)
+
+## [v1.3.4 (2022-02-08)](https://github.com/yedpay/php-library/compare/1.3.3...1.3.4)
+
+### Added
+- Support PHP up to version 8.1
+- Add new acceptable parameters in `setPaymentData` method
 
 ## [v1.3.3 (2021-11-11)](https://github.com/yedpay/php-library/compare/1.3.2...1.3.3)
 

@@ -18,6 +18,9 @@ matrix:
     - php: 8.0
       dist: xenial
       env: composer_update=true
+    - php: 8.1.0
+      dist: bionic
+      env: composer_update=true
 
 install:
   # Install composer packages

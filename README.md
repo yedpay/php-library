@@ -60,7 +60,7 @@ In order to start using the API, you need to get Your Personal Access Token or A
 | subject          | String  | (Optional) Product Name of the transaction                                                                         |
 | expiryTime       | Integer | (Optional) Expiry Time in Seconds of the transaction (Range: 900 - 10800)                                          |
 | metadata         | Json    | (Optional) metadata for plugin information                                                                         |
-| paymentData      | Json    | (Optional) Payment Data that will include in the payment page (Card payment only, support `email`, `billing_country`, `billing_city`, `billing_address1`, `billing_address2`, `billing_post_code`, `billing_state`) |
+| paymentData      | Json    | (Optional) Payment Data that will include in the payment page (Card payment only, support `first_name`, `last_name`, `email`, `phone`, `billing_country`, `billing_city`, `billing_address1`, `billing_address2`, `billing_post_code`, `billing_state`) |
 | checkoutDomainId | String  | (Optional) Checkout domain Key                                                                                     |
 
 * Refund
@@ -180,7 +180,10 @@ Create instance of Client
 
     //set payment data of online payment
     $paymentData = json_encode([
+        'first_name' => 'Yedpay',
+        'last_name' => 'Yedpay',
         'email' => 'info@example.com',
+        'phone' => '12345678',
         'billing_country' => 'HK',
         'billing_city' => 'Hong Kong',
         'billing_address1' => 'Address1',

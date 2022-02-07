@@ -31,7 +31,7 @@ class Client
     private $refundCustomIdPath = '/online-payment/%s/refund';
 
     const LIBRARY_NAME = 'Yedpay-php-library';
-    const LIBRARY_VERSION = '1.3.3';
+    const LIBRARY_VERSION = '1.3.4';
 
     const INDEX_GATEWAY_ALIPAY = 1;
     const INDEX_GATEWAY_ALIPAY_ONLINE = 4;
@@ -141,7 +141,8 @@ class Client
         $parameter = $this->getExpiryTime() ? array_merge($parameter, ['expiry_time' => $this->getExpiryTime()]) : $parameter;
         if ($this->getGatewayCode()) {
             $parameter = array_merge($parameter, ['gateway_code' => $this->getGatewayCode()]);
-            if ($this->getGatewayCode() == static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP ||
+            if (
+                $this->getGatewayCode() == static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_WAP ||
                 $this->getGatewayCode() == static::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE
             ) {
                 $parameter = array_merge($parameter, ['wallet' => $this->getWallet()]);
@@ -500,7 +501,10 @@ class Client
         }
 
         $validateKeyArray = [
+            'first_name',
+            'last_name',
             'email',
+            'phone',
             'billing_country',
             'billing_city',
             'billing_address1',
