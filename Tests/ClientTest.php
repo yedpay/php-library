@@ -322,7 +322,10 @@ class ClientTest extends TestCase
     public function test_set_payment_data()
     {
         $expected = json_encode([
+            'first_name' => 'Yedpay',
+            'last_name' => 'Yedpay',
             'email' => 'info@example.com',
+            'phone' => '12345678',
             'billing_country' => 'HK',
             'billing_city' => 'Hong Kong',
             'billing_address1' => 'Address1',
@@ -464,8 +467,8 @@ class ClientTest extends TestCase
             'status' => 401
         ]));
         $result = $this->class->setGatewayCode(Client::INDEX_GATEWAY_CODE_ALIPAY_ONLINE_PC2MOBILE)
-                    ->setCurl($mockCurl)
-                    ->onlinePayment('1234', 1);
+            ->setCurl($mockCurl)
+            ->onlinePayment('1234', 1);
         $this->assertTrue($result instanceof Error);
     }
 
@@ -479,11 +482,11 @@ class ClientTest extends TestCase
         ]));
 
         $result = $this->class->setMetadata(json_encode([
-                        'opencart' => '1.0',
-                        'yedpay_for_opencart' => '1.0',
-                    ]))
-                    ->setCurl($mockCurl)
-                    ->onlinePayment('1234', 1);
+            'opencart' => '1.0',
+            'yedpay_for_opencart' => '1.0',
+        ]))
+            ->setCurl($mockCurl)
+            ->onlinePayment('1234', 1);
         $this->assertTrue($result instanceof Error);
     }
 
