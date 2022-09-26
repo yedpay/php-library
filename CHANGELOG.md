@@ -2,7 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/yedpay/php-library/compare/1.3.4...HEAD)
+## [Unreleased](https://github.com/yedpay/php-library/compare/1.4.0...HEAD)
+
+## [v1.3.4 (2022-09-28)](https://github.com/yedpay/php-library/compare/1.3.4...1.4.0)
+
+### Added
+- Add `queryOnlinePayment` method
 
 ## [v1.3.4 (2022-02-08)](https://github.com/yedpay/php-library/compare/1.3.3...1.3.4)
 

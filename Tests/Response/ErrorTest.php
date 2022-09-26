@@ -13,6 +13,7 @@ class ErrorTest extends TestCase
         'success' => false,
         'message' => 'Could not create resource',
         'status' => 422,
+        'code' => 666,
         'errors' => [
             'code' => 422,
             'field' => 'phone',
@@ -44,6 +45,11 @@ class ErrorTest extends TestCase
     public function test_get_errors()
     {
         $this->assertEquals($this->error['errors'], $this->result->getErrors());
+    }
+
+    public function test_get_response_code()
+    {
+        $this->assertEquals($this->error['code'], $this->result->getResponseCode());
     }
 
 }

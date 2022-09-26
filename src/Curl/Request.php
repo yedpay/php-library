@@ -30,6 +30,12 @@ class Request implements HttpRequest
      */
     public function setOptionArray($url, $method, $parameters, $token, $isAccessToken = true)
     {
+        $method = strtoupper($method);
+        if ($method == 'GET' && !empty($parameters))
+        {
+            $url .= '?'.http_build_query($parameters);
+        }
+
         curl_setopt_array($this->handle, [
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -37,8 +43,8 @@ class Request implements HttpRequest
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30000,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => strtoupper($method),
-            CURLOPT_POSTFIELDS => !empty($parameters) ? http_build_query($parameters) : null,
+            CURLOPT_CUSTOMREQUEST => $method,
+            CURLOPT_POSTFIELDS => ($method == 'POST' && !empty($parameters)) ? http_build_query($parameters) : null,
             CURLOPT_REFERER => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null,
             CURLOPT_HTTPHEADER => [
                 'Authorization: ' . ($isAccessToken ? 'Bearer ' : 'API-KEY ') . $token,

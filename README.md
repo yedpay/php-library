@@ -82,6 +82,14 @@ In order to start using the API, you need to get Your Personal Access Token or A
 | customId    | String | Custom ID in the API                                      |
 | reason      | String | (Optional) refund reason of the transaction               |
 
+* Query Online Payment
+
+| Parameter   | Type   | Description                                               |
+| ----------- | ------ | --------------------------------------------------------- |
+| apiKey      | String | (Required without accessToken) Api Key used to access API |
+| environment | String | Environment ( 'staging' or 'production' )                 |
+| customId    | String | Custom ID in the API                                      |
+
 ### Result
 
 * Success

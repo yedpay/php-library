@@ -26,6 +26,7 @@ class RequestTest extends TestCase
                 'wallet' => 'CN',
             ];
         $this->method = 'POST';
+        $this->method_get = 'GET';
 
         $this->request = new Request();
     }
@@ -48,6 +49,13 @@ class RequestTest extends TestCase
     public function test_execute()
     {
         $this->request->setOptionArray($this->path, $this->method, $this->parameters, $this->token, true);
+        $actual = $this->request->execute();
+        $this->assertEquals(null, $actual);
+    }
+
+    public function test_execute_get_method()
+    {
+        $this->request->setOptionArray($this->path, $this->method_get, $this->parameters, $this->token, true);
         $actual = $this->request->execute();
         $this->assertEquals(null, $actual);
     }
