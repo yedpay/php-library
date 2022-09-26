@@ -29,6 +29,7 @@ class Client
     private $onlinePaymentPath = '/online-payment';
     private $refundPath = '/transactions/%s/refund';
     private $refundCustomIdPath = '/online-payment/%s/refund';
+    private $onlinePaymentQueryPath = '/online-payment/query';
 
     const LIBRARY_NAME = 'Yedpay-php-library';
     const LIBRARY_VERSION = '1.3.4';
@@ -167,6 +168,26 @@ class Client
         $parameter = $this->getCheckoutDomainId() ? array_merge($parameter, ['checkout_domain_id' => $this->getCheckoutDomainId()]) : $parameter;
 
         return $this->curl->call($this->path, 'POST', $parameter);
+    }
+
+    /**
+     * @param $custom_id
+     * @return Response\Response
+     * @throws Exception
+     */
+    public function queryOnlinePayment($custom_id)
+    {
+        if (!$this->curl) {
+            throw new Exception('Please set curl with credentials first');
+        }
+        $this->path = $this->onlinePaymentQueryPath;
+
+        $params = [];
+        if (!empty($custom_id)) {
+            $params['custom_id'] = $custom_id;
+        }
+
+        return $this->curl->call($this->path, 'GET', $params);
     }
 
     /**

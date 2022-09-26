@@ -9,6 +9,7 @@ namespace Yedpay\Response;
 class Error extends Response
 {
     private $errorCode;
+    private $resp_code;
 
     private $errors;
 
@@ -25,6 +26,17 @@ class Error extends Response
         if (!empty($response['errors'])) {
             $this->errors = $response['errors'];
         }
+        if (!empty($response['code'])) {
+            $this->resp_code = $response['code'];
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponseCode()
+    {
+        return $this->resp_code;
     }
 
     /**

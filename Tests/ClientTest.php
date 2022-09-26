@@ -615,4 +615,27 @@ class ClientTest extends TestCase
         $result = $this->class->setCheckoutDomainId('123456');
         $this->assertEquals($expected, $result->getCheckoutDomainId());
     }
+
+    public function test_method_query_online_payment_exists()
+    {
+        $this->assertTrue(method_exists(Client::class, 'queryOnlinePayment'));
+    }
+
+    public function test_query_online_payment_null_curl()
+    {
+        $this->expectException(Exception::class);
+        $this->class->queryOnlinePayment('1234');
+    }
+
+    public function test_query_online_payment()
+    {
+        $mockCurl = $this->mockCurl;
+        $mockCurl->method('call')->willReturn(new Error([
+            'success' => false,
+            'message' => 'Unauthenticated.',
+            'status' => 401
+        ]));
+        $result = $this->class->setCurl($mockCurl)->queryOnlinePayment('1234567');
+        $this->assertTrue($result instanceof Error);
+    }
 }
