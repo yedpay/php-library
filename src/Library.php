@@ -136,7 +136,7 @@ class Library
 
     /**
      * Get the value of apiKey
-     */ 
+     */
     public function getApiKey()
     {
         return $this->apiKey;
@@ -146,7 +146,7 @@ class Library
      * Set the value of apiKey
      *
      * @return  self
-     */ 
+     */
     public function setApiKey($apiKey)
     {
         $this->apiKey = $apiKey;
