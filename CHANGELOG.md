@@ -2,9 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased](https://github.com/yedpay/php-library/compare/1.4.0...HEAD)
+## [Unreleased](https://github.com/yedpay/php-library/compare/1.4.1...HEAD)
 
-## [v1.3.4 (2022-09-28)](https://github.com/yedpay/php-library/compare/1.3.4...1.4.0)
+## [v1.4.1 (2022-10-11)](https://github.com/yedpay/php-library/compare/1.4.0...1.4.1)
+
+### Fixed
+- Send refund parameters in `refundByCustomId` method
+
+## [v1.4.0 (2022-09-28)](https://github.com/yedpay/php-library/compare/1.3.4...1.4.0)
 
 ### Added
 - Add `queryOnlinePayment` method

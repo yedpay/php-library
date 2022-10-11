@@ -32,7 +32,7 @@ class Client
     private $onlinePaymentQueryPath = '/online-payment/query';
 
     const LIBRARY_NAME = 'Yedpay-php-library';
-    const LIBRARY_VERSION = '1.4.0';
+    const LIBRARY_VERSION = '1.4.1';
 
     const INDEX_GATEWAY_ALIPAY = 1;
     const INDEX_GATEWAY_ALIPAY_ONLINE = 4;
