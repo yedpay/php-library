@@ -1,7 +1,7 @@
 {
     "name": "yedpay/php-library",
     "description": "Agnostic Library to use the Yedpay API for Online Payment",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "type": "library",
     "require": {
         "php": ">=5.5"

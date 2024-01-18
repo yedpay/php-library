@@ -32,7 +32,7 @@ class Client
     private $onlinePaymentQueryPath = '/online-payment/query';
 
     const LIBRARY_NAME = 'Yedpay-php-library';
-    const LIBRARY_VERSION = '1.4.1';
+    const LIBRARY_VERSION = '1.4.2';
 
     const INDEX_GATEWAY_ALIPAY = 1;
     const INDEX_GATEWAY_ALIPAY_ONLINE = 4;
@@ -239,8 +239,9 @@ class Client
             return false;
         }
 
-        $sign = $data['sign'];
-        $algorithm = $data['sign_type'];
+        $data = filter_var_array($data, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $sign = filter_var($data['sign'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $algorithm = filter_var($data['sign_type'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         unset($data['sign'], $data['sign_type']);
         if (!empty($unsetField)) {
